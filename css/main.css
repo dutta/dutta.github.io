@@ -1645,9 +1645,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .ordered-list li {
   list-style-type: decimal-leading-zero;
-  color: #e45447;
-  font-weight: 500;
-  line-height: 1.82em !important;
+  color: #777777;
+  font-weight: 100;
+  line-height: 1.5em !important;
 }
 .ordered-list li span {
   font-weight: 300;

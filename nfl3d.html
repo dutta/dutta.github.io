@@ -4,6 +4,8 @@
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142864443-1"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -105,7 +107,7 @@
 		<div class="container">
 			<div class="portfolio_details_inner">
 				<div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                                 <div class="portfolio_right_text mt-150">
                                     <h4> Nfl3D </h4>
                                     <p> The work we have done here is to add the z-axis to the motion of a thrown pass, given standard tracking data. </p>
@@ -117,35 +119,139 @@
                                     </ul>
                                 </div>
                             </div>
-					<div class="col-md-6">
+					<div class="col-md-7">
 						<div class="left_img">
                             <p>We have created a set of R functions that allow you to add the Z axis to a pass play. Additionally, we have created functions to easily plot the NGS-highlight data </p>
 
-                            <p>Before you can run the code, you need to install and load a few required libraries, and source the R scripts containing the funcions. </p>
-                            <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">install.packages("plotly", "tidyverse")</code>
+                            <p>Before you can run the code, you need to install a few required libraries </p>
+                            <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">
+                                    install.packages("plotly", "tidyverse", "ggplot2")
+                                    </code>
                             <br>
-                            <p>Then, figure out what the path to the data is. This should be the folder that contains all the NGS files. An example path is:  </p>
-                            <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">/users/rishav/big-data-bowl/data</code>
+                        
+                            <p>Then, we can load the libraries through the source:</p>
+                            <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">
+                                source("https://raw.githubusercontent.com/dutta/NFL3D/master/add_z.R")
+                                    source("https://raw.githubusercontent.com/dutta/NFL3D/master/animate_play.R")</code>
                             <br>
-                            <p>Run the code from the directory the file is in using the command:</p>
-                            <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">python animate_vals.py /path/to/data/folder</code>
+                            <p>The following functions are the ones neccessary to see the results:</p>
+                            <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">
+                                add_z_to_play() <br/>
+                                three_d_animate() <br/>
+                                three_d_animate_static() <br/>
+                                get_all_arcs_for_passer() <br/>
+                                three_d_all_passes()
+                            </code>
                             <br>
-                            <p>Input the <code>gameID</code> and the <code>playID</code> and the output will be an HTML file with the plot.ly animation of the play.</p>
 						</div>
 					</div>
 					
                 </div>
-                <h4>Some Examples</h4>
+                <h4>Introduction</h4>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
+                    <p>Currently, NFL publicly available tracking data is presented entirely in 2 dimensions. The <code>x</code> axis (usually 0-120) represents a position between the end zones in yards, and the <code>y</code> axis (usually 0-54 )represents a position between the sidelilnes in yards. We have the position of players on the field throughout the duration of a play. Some animations that are created from such data looks like this: 
+                    </p>
+                    <img style = "width: 49%; height: 380px;" src='./img/play-497.gif'></img>
+                    <img style = "width: 49%; height: 380px;" src='./img/play-502.gif'></img>
+                    <img style = "width: 49%; height: 380px;" src='./img/play-499.gif'></img>
+                    <img style = "width: 49%; height: 380px;" src='./img/play-503.gif'></img>
+                    <p>While informative, we lose some of the nuance of a throw. For example, the play in the bottom left corner above shows a pass to a player who was covered tightly by the defender. What we do not see was the arc of the throw that allowed the pass to avoid the outstreched hands of the defender and drop into the receivers' arms. Similarily, in the top left panel, we see a throw that appears to pass through 3 defenders. What we are unable to see is a perfectly thrown looped pass that was thrown with an arc that would allow the ball to pass over the 3 defenders and exactly into the arms of the receiver but still allowing the catcher to remain in-bounds. </p>
 
-
-                                
+                    <p> Some quarterbacks are better at using the flight of the ball to beat defenders, and we attempt to quantify and understand this by using the 2D data to interpolate the <code>z</code> axis of the position of the ball. In doing so, we can calculate the angle of launch and the true velocity of launch through which we can compare different quarterbacks and their use of flight.</p>            
                     </div>
                 </div>
-                
-                
+
+                <h4>Theory</h4>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p>Since we currently only have the <code>x,y </code> coordinates of the position of the ball, we will use kinematic equations to interpolate the z-axis. In order to apply the kinematics equations we must first make some assumptions:  
+                    </p>
+                    <blockquote class = "generic-blockquote">
+                    <ol class = "ordered-list">
+                        <li> Since we are looking for comparative relationship between quarterbacks, we will assume <code>no air resistance for this first version of NFL3D</code></li>
+                        <li> Since quarterbacks can release the ball at different points, and we don't have any information about the release point, we will make an assumption that the ball is <code>released and received at 6ft</code> (in future releases this will be variable)</li>
+                        <li> With no <code>air resistance</code> the only forces on the ball will be the horizontal gravity force</li>
+                    </ol>
+
+                    </blockquote>
+
+                    <p>With the assumptions above, we can begin formulating the problem. Consider the following three figures. </p>
+                    <figure>
+                            <img style = "width: 51%; display: block; margin-left: auto; margin-right: auto; " src='./img/main.png'></img>
+                            <figcaption style = "width: 51%; display: block; margin-left: auto; margin-right: auto;">Figure 1</figcaption>
+                    </figure>
+                    <img style = "width: 49%; " src='./img/slice.png'></img>
+                    <img style = "width: 49%; " src='./img/forces.png'></img>
+                    <br><br>
+                    <p>From 2D tracking data, the information about the position of the ball is just the launch position and the arrival position. 
+                            Using <code>assumption 2</code>, the launch position (all units in yards) is: <code>(x<sub>throw</sub>,y<sub>throw</sub>,2)</code> and the throw happens 
+                        at time <code>t<sub>throw</sub></code>. Symmetrically, the arrival position is just <code>(x<sub>ball arrive</sub>,y<sub>ball arrive</sub>,2)</code> and happens 
+                        at time <code>t<sub>ball arrive</sub></code>. Figure 1 encapsulates the construction of this problem.</p>
+                    <p>Now consider the second figure. In this figure, we have sliced along the black line figure 1. This gives us the flight of the ball through the air is a parabola (from <code>assumption 1 and 3</code> 
+                        the only force acting on the ball is gravity). We know the coordinates of the ball at time <code>t<sub>throw</sub></code> is <code>(x<sub>throw</sub>,y<sub>throw</sub>,2)</code> 
+                        and at time  <code>t<sub>ball arrive</sub></code> is <code>(x<sub>ball arrive</sub>,y<sub>ball arrive</sub>,2)</code>. From projectile motion, we know that the horizontal component
+                        and the vertical component are independent with regards to speed. Since we know the x and y coordinates of the ball at specific times, we can calculate the velocity along the ground 
+                        <code>V<sub>xy</sub> </code>:</p> 
+                        <blockquote class = "generic-blockquote">
+                                <b>Equation 1:</b>
+                                Given the <code>t<sub>throw</sub></code> and <code>t<sub>ball arrive</sub></code> points of the ball, <code>(x<sub>throw</sub>,y<sub>throw</sub>,2)</code> and <code>(x<sub>ball arrive</sub>,y<sub>ball arrive</sub>,2)</code>
+                                
+                                \[V_{xy} = \sqrt{(x_{ball arrive} - x_{throw})^2 + (y_{ball arrive} - y_{throw})^2 \over (t_{ball arrive} - t_{throw})}\]
+                        </blockquote>
+                    <p> Upon release, the ball has velocities in the directions as described by the third figure. Our goal is to find the <code>z</code> value at any given timestamp during the 
+                    duration of the throw. Since we know how long the ball is in the air, we can apply the following equation for the position of the ball:</p>
+                    <blockquote class = "generic-blockquote">
+                            <b>Equation 2:</b>
+                            \[\Delta z = V_{z}  t - {1 \over 2}gt^2\]
+                            Where \(\Delta z\) is the displacement from the initial <code>z</code> position and \(V_{z}\) is the initial velocity in the <code>z</code> direction.
+                    </blockquote>
+                    From <code>assumption 2</code> we see that the arrival position and the throw position are the same with respect to the <code>z</code> axis. Thus we can set this
+                    value to 0. Then we can rearrange the equation to calculate the velocity in the <code>z</code>, <code>V<sub>0z</sub></code> : 
+                    
+                    <blockquote class = "generic-blockquote">
+                            <b>Equation 3:</b>
+                            \[V_{z} = {tg \over 2}\]
+                    </blockquote>
+                    
+                    Now that we have the velocity in the <code>z</code> direction, we can use the final kinematics equation to find the <code>z</code> value at any time <code>t<sub>s</sub></code> :
+                    <blockquote class = "generic-blockquote">
+                            <b>Equation 4:</b>
+                            \[z = z_0 + V_{z}  t - {1 \over 2} gt_s^2\] 
+                            More specifically in this case, since we know the initial \(z\) position:
+                            \[z = 2 + V_{z}  t - {1 \over 2} gt_s^2\] 
+                    </blockquote>
+
+                    Finally, since we have equations for <code>V<sub>xy</sub></code>, <code>V<sub>z</sub></code> we can also calculate the launch velocity and launch angle using the following equations using the velocity relationship in figure 3:
+                    <blockquote class = "generic-blockquote">
+                            <b>Equation 5a:</b> Initial Launch Velocity
+                            \[V = \sqrt {V_{z}^2 + V_{xy}^2} \]
+                            <br>
+                    </blockquote>
+
+                    <blockquote class = "generic-blockquote">
+                            <b>Equation 5b:</b> Initial Launch Angle
+                            \[\theta = \tan^{-1}({V_z \over V_{xy}}) \]
+                    </blockquote>
+
+                    </div>
+                </div>
+
+                <h4>NFL-3D Code</h4>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                    Our functions perform the above equations for each play and append the appropriate values to the play dataframe. We load in a NGS-highlight play (in depth code can be found: "https://github.com/asonty/ngs_highlights/"): 
+                    <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">
+                            source_url("https://raw.githubusercontent.com/asonty/ngs_highlights/master/utils/scripts/data_utils.R")
+                            source_url("https://raw.githubusercontent.com/asonty/ngs_highlights/master/utils/scripts/plot_utils.R")
+                            </code>
+
+
+                    </div>
+                </div>
 
 			</div>
 		</div>
