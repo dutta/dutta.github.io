@@ -93,7 +93,9 @@
                     </h3>
 					<p class="link-nav">
 						<span class="box">
-							<a href="index.html">Rishav Dutta </a>
+                            <a href="index.html">Rishav Dutta </a>
+                            <a href="http://www.stat.cmu.edu/~ryurko/">Ron Yurko</a>
+							<a href="http://www.stat.cmu.edu/people/faculty/sam-ventura">Sam Ventura</a></p>
                         </span>
                     </p>
 				</div>
@@ -145,7 +147,13 @@
                             <br>
 						</div>
 					</div>
-					
+                    
+                    
+                </div>
+                <div class = "row">
+                    <img style="width: 49%" src = "https://github.com/dutta/NFL3D/raw/master/animated_play.gif"></img>
+                    <img style="width: 49%" src = "https://github.com/dutta/NFL3D/raw/master/static_example.gif"></img>
+                    
                 </div>
                 <h4>Introduction</h4>
                 <br>
@@ -178,7 +186,11 @@
 
                     </blockquote>
 
-                    <p>With the assumptions above, we can begin formulating the problem. Consider the following three figures. </p>
+                    <p>There are some other forces on the ball. The ball is rotating and there is a drag force from the air resistance. However, these are both hard to account for since the ball isn't always thrown in a spiral
+                        and thus understanding the surface area of the ball that is presented is rather complex. Timothy Gay in his book <i>The Physics of Football</i> discusses all 12 axis of forces on the ball, and Watts and Moore in their paper 
+                        <i>The Drag Force on an American Football</i> consider the drag force of a standard football <sup>1,2</sup>. 
+                        Since we are looking for relative results, we will ignore the rotation and air resistance for this edition of the problem.
+                        With the assumptions above, we can begin formulating the problem. Consider the following three figures. </p>
                     <figure>
                             <img style = "width: 51%; display: block; margin-left: auto; margin-right: auto; " src='./img/main.png'></img>
                             <figcaption style = "width: 51%; display: block; margin-left: auto; margin-right: auto;">Figure 1</figcaption>
@@ -239,31 +251,83 @@
                     </div>
                 </div>
 
-                <h4>NFL-3D Code</h4>
-                <br>
-                <div class="row">
-                    <div class="col-md-12">
-                    <p>Our functions perform the above equations for each play and append the appropriate values to the play dataframe. We load in a NGS-highlight play (in depth code can be found: "https://github.com/asonty/ngs_highlights/"):</p> 
-                    <code style = "background-color: #eee; border: 1px solid #999; display: block; padding: 10px;">
-                            source_url("https://raw.githubusercontent.com/asonty/ngs_highlights/master/utils/scripts/data_utils.R")
-                            source_url("https://raw.githubusercontent.com/asonty/ngs_highlights/master/utils/scripts/plot_utils.R")
-                            </code>
-                            
-
-                    </div>
-                </div>
 
                 <h4>Results</h4>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                     <p> From running the code on all of the NGS highlight plays, we can see some aggregate results in the following charts: </p>
-                        <img style = "width: 66%; display: block; margin-left: auto; margin-right: auto;" src='./img/scatter.png'></img>
+                     <p> Let us take a look back at the plays in the introduction. With the added <code>z</code> axis we can see 
+                        the arc of the throws: </p>
+                        <div class = "row">
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/play-497.gif'></img></div>
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/490.gif'></img></div>
+                        </div>
+                        <div class = "row">
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/play-502.gif'></img></div>
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/491.gif'></img></div>
+                        </div>
+                        <div class = "row">
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/play-499.gif'></img></div>
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/499.gif'></img></div>
+                        </div>
+                        <div class = "row">
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/play-503.gif'></img></div>
+                                <div class="col-md-6"><img style = "width: 100%; " src='./img/503.gif'></img></div>
+                        </div>
+                        <blockquote class = "generic-blockquote">
+                                We would like to emphasize that the dataset used was the NGS-highlight dataset and thus is highly skewed. Since these are highlight plays, many of these examples are deep passes, interceptions, and touchdowns.
+                                There are only a few passes that actually represent "the average" pass a quarterback would make. 
+                        </blockquote>
 
-                        <img style = "width: 66%; display: block; margin-left: auto; margin-right: auto; " src='./img/bar.png'></img>
+                        <p> We can see how many of these passes have large arcs in their passes in order to account for different defenses. Now let us look at the different launch velocities and throwing 
+                            angles for different quarterbacks. </p>
+                            
+                        <img style = "width: 88%; display: block; margin-left: auto; margin-right: auto;" src='./img/matrix.jpg'></img>
+                        <br>
+                        <p> We can see on average that Russell Wilson, who is the passer in all of the examples above, has a much higher launch angle than Patrick Mahomes and Drew Brees, and all three of them have similar 
+                            average velocities. On the other hand we see that Jimmy Garoppolo has a relatively small launch angle and launch velocity on average. Josh Allen, vaunted for his arm strength, is among the top quarterbacks
+                        in terms of launch angle and velocity, further vindicating such praise. Now let us look at the max velocity by quarterbacks who have more than 5 highlight plays:</p>
 
+                        <img style = "width: 88%; display: block; margin-left: auto; margin-right: auto; " src='./img/max_vel.jpg'></img>
+                        <br>
+                        <p> Patrick Mahomes far and away has the fastest pass in the NGS-highlight dataset. Josh Allen also has a pass in the top few of quarterbacks. Russell Wilson's fastest pass is toward the middle of the pack. Hence, let us look 
+                            at the distribution of launch angle and launch velocity:</p>
 
+                        <img style = "width: 88%; display: block; margin-left: auto; margin-right: auto; " src='./img/wilson.png'></img>
+                        <br>
+                        <p>We can see from the distribution that Russell Wilson generally has passes with a launch angle above 30 degrees. Further, we see that his launch velocity is very close to a standard normal
+                            around 44-45 mph. These are just some examples of the analysis that can be done with these added values. </p>
                     </div>
+                </div>
+
+                <h4>Discussion and Future Work</h4>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                     <p> The work we have presented here allows us to add the <code>z</code> axis to standard 2D tracking data. In doing this work, we are able to extract the ball position, launch angle, and launch velocity. Since the dataset 
+                    is skewed and rather small, the scope of the work done here is limited. However, this work shows promise and with a larger dataset we would be able to perform more complex analysis. </p>
+                    <p> For example, given a larger dataset, we could extend the problem to look at players who are more capable of throwing high velocity passes. For instance, are players who throw a higher average velocity able to complepte
+                        passes with a lower probability of completion? Or does the force neccessary to throw the pass inherently make the pass less accurate? We can ask the same questions about launch angle. Do the players who throw at a lower launch
+                        angle e.g. Jimmy Garoppolo complete more difficult passes or do the players who throw at a higher angle e.g. Russell Wilson or Kyler Murray complete the more difficult passes. Obviously we are unable to perform this analysis because
+                        our data does not contain any true incompletions, but with a standard season worth of data we would be able to understand how launch angle and velocity impact completions. 
+                    </p>
+                    <p>Another analysis that could be performed would be how well WRs or DBs track the ball in the air depending on the arc of the ball or the speed of the pass. We could start to see how players have to slow down or speed up in reaction
+                    to the pass. This could be compounded with how different quarterbacks throw into different defensive types. Does man coverage mean QBs have to throw with a higher arc or do certain zone coverages induce a smaller arc with a higher pass? 
+                    We can start to see how quarterbacks adapt to different pass defenses with their throws, and try and understand how defenses can better approach different quarterback throwing styles. 
+                    </p>
+                    <p>
+                        With additional data we would be able to start to tackle some of these more complicated questions. 
+                    </p>
+                    </div>
+                </div>
+
+                <h4>References</h4>
+                <br>
+                <div class="row">
+                        <div class="col-md-12">
+                    <p><sup>1</sup><i>The Physics of Football</i> - Timothy Gay</p>
+                    <p><sup>2</sup><i>The drag force on an American Football</i> - Robert G. Watts and Gary Moore http://users.df.uba.ar/sgil/physics_paper_doc/papers_phys/fluids/drag_football.pdf</p>
+                        </div>
                 </div>
 
 			</div>
