@@ -180,14 +180,24 @@
                     <blockquote class = "generic-blockquote">
                     <ol class = "ordered-list">
                         <li> Since we are looking for comparative relationship between quarterbacks, we will assume <code>no air resistance for this first version of NFL3D</code></li>
-                        <li> Since quarterbacks can release the ball at different points, and we don't have any information about the release point, we will make an assumption that the ball is <code>released and received at 6ft</code> (in future releases this will be variable)</li>
+                        <li> Since quarterbacks can release the ball at different points, and we don't have any information about the release point, we will make an assumption that the ball is <code>released and received at 6ft</code> (in future releases this will be variable). Additionally, we will assume the pass
+                        is not tipped or disturbed significantly enough to alter the parabola. The ball goes from the QB's hand to the catcher's hand with nothing in between
+                            <ol class = "ordered-list-alpha"> 
+                                <li>
+                                    <span>The NGS-highlights dataset only has completions and interceptions, and thus we choose to make the arrival point 6ft (2 yards) in the air. With more data, we would treat incompletions differently, we would set the arrival point 
+                                    to <code>z = 0</code></span>
+                                </li>
+                            </ol>
+
+                        </li>
+                        
                         <li> With no <code>air resistance</code> the only forces on the ball will be the horizontal gravity force</li>
                     </ol>
 
                     </blockquote>
 
                     <p>There are some other forces on the ball. The ball is rotating and there is a drag force from the air resistance. However, these are both hard to account for since the ball isn't always thrown in a spiral
-                        and thus understanding the surface area of the ball that is presented is rather complex. Timothy Gay in his book <i>The Physics of Football</i> discusses all 12 axis of forces on the ball, and Watts and Moore in their paper 
+                        and thus understanding the surface area of the ball that is presented is rather complex. Timothy Gay in his book <i>The Physics of Football</i> discusses all 12 axes of forces on the ball, and Watts and Moore in their paper 
                         <i>The Drag Force on an American Football</i> consider the drag force of a standard football <sup>1,2</sup>. 
                         Since we are looking for relative results, we will ignore the rotation and air resistance for this edition of the problem.
                         With the assumptions above, we can begin formulating the problem. Consider the following three figures. </p>
