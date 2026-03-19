@@ -1,176 +1,583 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-
+<html lang="en">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142864443-1"></script>
-    <script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unsupervised Techniques for Classifying DB — Rishav Dutta</title>
+  <meta name="description" content="Unsupervised Techniques for Classifying DB using Next-Gen-Stats">
+  <link rel="shortcut icon" href="img/logo.png">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142864443-1"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'UA-142864443-1');
-    </script>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/logo.png">
-	<!-- Author Meta -->
-	<meta name="author" content="colorlib">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<!-- Site Title -->
-	<title>Rishav Dutta</title>
+  </script>
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
-	<!--
-			CSS
-			============================================= -->
-	<link rel="stylesheet" href="css/linearicons.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/nice-select.css">
-	<link rel="stylesheet" href="css/animate.min.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" href="css/main.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       RESET & VARIABLES
+       ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg-elevated: #111116;
+      --bg-card: #16161c;
+      --accent: #FF3C00;
+      --accent-glow: #FF6B35;
+      --accent-dim: rgba(255, 60, 0, 0.15);
+      --text: #E8E0D4;
+      --text-muted: #8A8478;
+      --text-dim: #4A4640;
+      --border: rgba(232, 224, 212, 0.08);
+      --border-accent: rgba(255, 60, 0, 0.25);
+
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-mono: 'Space Mono', monospace;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ============================================
+       SCROLLBAR
+       ============================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 10, 15, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ============================================
+       HERO BANNER
+       ============================================ */
+    .hero-banner {
+      padding: 10rem 3rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 2rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .hero-authors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .hero-authors a,
+    .hero-authors span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      transition: color 0.3s;
+    }
+
+    .hero-authors a:hover {
+      color: var(--accent);
+    }
+
+    .hero-authors .separator {
+      color: var(--text-dim);
+    }
+
+    .hero-year {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    /* ============================================
+       MAIN LAYOUT (TWO-COLUMN)
+       ============================================ */
+    .content-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 4rem;
+    }
+
+    /* ============================================
+       SIDEBAR
+       ============================================ */
+    .sidebar {
+      position: sticky;
+      top: 7rem;
+      align-self: start;
+    }
+
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .sidebar-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .sidebar-link {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      padding: 0.4rem 0;
+      transition: color 0.3s;
+      word-break: break-all;
+    }
+
+    .sidebar-link:hover {
+      color: var(--accent-glow);
+    }
+
+    .sidebar-link svg {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right: 0.4rem;
+      vertical-align: -2px;
+      fill: currentColor;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+      border-radius: 3px;
+    }
+
+    /* ============================================
+       MAIN CONTENT
+       ============================================ */
+    .main-content {
+      min-width: 0;
+    }
+
+    .content-section {
+      margin-bottom: 3rem;
+    }
+
+    .content-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: -0.01em;
+    }
+
+    .content-section p {
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .content-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* IMAGE */
+    .content-image {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      margin-bottom: 2rem;
+    }
+
+    .content-image img {
+      width: 100%;
+      display: block;
+    }
+
+    /* CODE BLOCKS */
+    pre, code {
+      font-family: var(--font-mono);
+    }
+
+    code {
+      font-size: 0.85em;
+      background: var(--bg-card);
+      color: var(--accent-glow);
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+
+    pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    /* BLOCKQUOTES */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      background: var(--bg-elevated);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-back {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.3s;
+    }
+
+    .footer-back:hover {
+      color: var(--accent);
+    }
+
+    .footer-back svg {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 0.5rem;
+      vertical-align: -3px;
+      fill: currentColor;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .hero-banner {
+        padding: 8rem 1.5rem 3rem;
+      }
+
+      .content-wrapper {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+      }
+
+      .sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar-section {
+        margin-bottom: 0;
+      }
+
+      .footer {
+        padding: 2rem 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 1.6rem;
+      }
+
+      .sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.6rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-	<!-- Start Preloader Area -->
-	<div class="preloader-area">
-		<div class="loader-box">
-			<div class="loader"></div>
-		</div>
-	</div>
-	<!-- End Preloader Area -->
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">RD<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">Back to Projects</a></li>
+    </ul>
+  </nav>
 
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-eyebrow">Research Paper</div>
+    <h1 class="hero-title">Unsupervised Techniques for Classifying DB using Next-Gen-Stats</h1>
+    <div class="hero-meta">
+      <div class="hero-authors">
+        <a href="index.html">Rishav Dutta</a>
+        <span class="separator">/</span>
+        <a href="http://www.stat.cmu.edu/~ryurko/">Ron Yurko</a>
+        <span class="separator">/</span>
+        <a href="http://www.stat.cmu.edu/people/faculty/sam-ventura">Sam Ventura</a>
+      </div>
+      <span class="hero-year">2019</span>
+    </div>
+  </section>
 
-	<!-- Start Header Area -->
-	<header id="header">
-		<div class="container main-menu">
-			<div class="row align-items-center d-flex">
-				<!-- <div id="logo">
-					<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
-				</div> -->
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-                        <!-- <li class=""><a class="active" href="index.html">Home</a></li> -->
-                        <li><a href="index.html">Home</a></li>
-						<li><a href="index.html#aboutme">About Me</a></li>
-						<li><a href="index.html#work">Projects</a></li>
-						<li ><a href="index.html#job">Work History</a></li>
-						<li ><a href="index.html#edu">Education</a></li>
-						<li ><a href="index.html#contact">Contact</a></li>
-						
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</header>
-	<!-- End Header Area -->
+  <!-- Two-Column Layout -->
+  <div class="content-wrapper">
 
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Links</div>
+        <a class="sidebar-link" href="https://arxiv.org/abs/1906.11373" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>
+          Paper (arXiv)
+        </a>
+        <a class="sidebar-link" href="https://github.com/dutta/UnsupervisedDBClustering" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </a>
+        <a class="sidebar-link" href="https://github.com/nfl-football-ops/Big-Data-Bowl" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M20 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 10H4V8h16v8zM6 12h8v2H6v-2z"/></svg>
+          NFL Data
+        </a>
+      </div>
 
-	<!-- start banner Area -->
-	<section class="banner-area2 relative">
-		<div class="container">
-			<div class="row d-flex align-items-center justify-content-center">
-				<div class="about-content col-lg-12">
-					<h2 class="text-white">
-						Unsupervised Techniques for Classifying DB using Next-Gen-Stats
-					</h2>
-					<p class="link-nav">
-						<span class="box">
-							<a href="index.html">Rishav Dutta </a>
-							<a href="http://www.stat.cmu.edu/~ryurko/">Ron Yurko</a>
-							<a href="http://www.stat.cmu.edu/people/faculty/sam-ventura">Sam Ventura</a></p>
-					</span>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End banner Area -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Tags</div>
+        <div class="tag-list">
+          <span class="tag">NFL</span>
+          <span class="tag">Unsupervised Learning</span>
+          <span class="tag">Clustering</span>
+          <span class="tag">Next-Gen-Stats</span>
+          <span class="tag">GMM</span>
+        </div>
+      </div>
+    </aside>
 
-	<!-- Portfolio Details Area -->
-	<section class="portfolio_details_area section-gap">
-		<div class="container">
-			<div class="portfolio_details_inner">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="left_img">
-							<img class="img-fluid" src="img/work/unsup.png" alt="">
-						</div>
-					</div>
-					<div class="offset-md-1 col-md-5">
-						<div class="portfolio_right_text mt-80">
-							<h4>Unsupervised Techniques for Classifying DB using Next-Gen-Stats</h4>
-							<p>The work that we have done in this paper is using Next-Gen-Stats 
-                                from the NFL Big Data Bowl 2019. </p>
-							<ul class="list">
-								<li><span>Link to paper:</span> <a href="https://arxiv.org/abs/1906.11373">https://arxiv.org/abs/1906.11373</a></li>
-                                <li><span>Github: </span> <a href="https://github.com/dutta/UnsupervisedDBClustering">https://github.com/dutta/UnsupervisedDBClustering</a></li>
-                                <li><span>Link to Data: </span> <a href="https://github.com/nfl-football-ops/Big-Data-Bowl">https://github.com/nfl-football-ops/Big-Data-Bowl</a> </li>
-                                
-							</ul>
-						</div>
-					</div>
-                </div>
-                <h4>Abstract</h4>
-				<p>Analysis of player tracking data for American football is in its infancy, 
-                    since the National Football League (NFL) released its Next Gen Stats tracking data 
-                    publicly for the first time in December 2018.  While tracking datasets in other sports often 
-                    contain detailed annotations of on-field events, annotations in the NFL's tracking data are limited.  
-                    Methods for creating these annotations typically require extensive human labeling, which is difficult 
-                    and expensive.  We begin tackling this class of problems by creating annotations for 
-                    pass coverage types by defensive backs using unsupervised learning techniques,
-                    which require no manual labeling or human oversight.  
-                    We define a set of features from the NFL's tracking data that help distinguish between 
-                    "zone" and "man" coverage. We use Gaussian mixture modeling and hierarchical clustering 
-                    to create clusters corresponding to each group, and we assign the appropriate type of 
-                    coverage to each cluster through qualitative analysis of the plays in each cluster. 
-                    We find that the mixture model's "soft" cluster assignments allow for more flexibility when 
-                    identifying coverage types.  Our work makes possible several potential avenues of future NFL research, 
-                    and we provide a basic exploration of these in this paper.</p>
+    <!-- Main Content -->
+    <main class="main-content">
 
-			</div>
-		</div>
-	</section>
-	<!-- End Portfolio Details Area -->
+      <div class="content-section">
+        <div class="content-image">
+          <img src="img/work/unsup.png" alt="Unsupervised Techniques for Classifying DB using Next-Gen-Stats">
+        </div>
+      </div>
 
+      <div class="content-section">
+        <h2>Abstract</h2>
+        <p>Analysis of player tracking data for American football is in its infancy,
+          since the National Football League (NFL) released its Next Gen Stats tracking data
+          publicly for the first time in December 2018.  While tracking datasets in other sports often
+          contain detailed annotations of on-field events, annotations in the NFL's tracking data are limited.
+          Methods for creating these annotations typically require extensive human labeling, which is difficult
+          and expensive.  We begin tackling this class of problems by creating annotations for
+          pass coverage types by defensive backs using unsupervised learning techniques,
+          which require no manual labeling or human oversight.</p>
+        <p>We define a set of features from the NFL's tracking data that help distinguish between
+          "zone" and "man" coverage. We use Gaussian mixture modeling and hierarchical clustering
+          to create clusters corresponding to each group, and we assign the appropriate type of
+          coverage to each cluster through qualitative analysis of the plays in each cluster.
+          We find that the mixture model's "soft" cluster assignments allow for more flexibility when
+          identifying coverage types.  Our work makes possible several potential avenues of future NFL research,
+          and we provide a basic exploration of these in this paper.</p>
+      </div>
 
+    </main>
+  </div>
 
-	<!-- ####################### Start Scroll to Top Area ####################### -->
-	<div id="back-top">
-		<a title="Go to Top" href="#">
-			<i class="lnr lnr-arrow-up"></i>
-		</a>
-	</div>
-	<!-- ####################### End Scroll to Top Area ####################### -->
+  <!-- Footer -->
+  <footer class="footer">
+    <a href="index.html#projects" class="footer-back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Projects
+    </a>
+  </footer>
 
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	 crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/mn-accordion.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/isotope.pkgd.min.js"></script>
-	<script src="js/jquery.circlechart.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/main.js"></script>
 </body>
-
 </html>

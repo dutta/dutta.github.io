@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142864443-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-142864443-1');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" href="img/logo.png">
+	<meta name="author" content="Rishav Dutta">
+	<meta name="description" content="PaVE: Passing Value in Expectation — NFL Big Data Bowl 2021 Honorable Mention">
+	<title>PaVE | Rishav Dutta</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+	<script>
+	MathJax = {
+		tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] },
+		svg: { fontCache: 'global' },
+		startup: { typeset: true }
+	};
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+	<style>
+		*, *::before, *::after {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		:root {
+			--bg: #0a0a0f;
+			--elevated: #111116;
+			--card: #16161c;
+			--accent: #FF3C00;
+			--accent-glow: #FF6B35;
+			--text: #E8E0D4;
+			--muted: #8A8478;
+			--dim: #4A4640;
+			--font-display: 'Syne', sans-serif;
+			--font-body: 'Crimson Pro', serif;
+			--font-mono: 'Space Mono', monospace;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			background-color: var(--bg);
+			color: var(--text);
+			font-family: var(--font-body);
+			font-size: 18px;
+			line-height: 1.7;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		a {
+			color: var(--accent);
+			text-decoration: none;
+			transition: color 0.3s ease;
+		}
+
+		a:hover {
+			color: var(--accent-glow);
+		}
+
+		/* ---- Fixed Navigation ---- */
+		nav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1000;
+			background: rgba(10, 10, 15, 0.85);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border-bottom: 1px solid rgba(255, 60, 0, 0.08);
+			padding: 0 2rem;
+			height: 64px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		nav .logo {
+			font-family: var(--font-display);
+			font-weight: 800;
+			font-size: 1.5rem;
+			color: var(--text);
+			letter-spacing: -0.02em;
+			transition: color 0.3s ease;
+		}
+
+		nav .logo:hover {
+			color: var(--accent);
+		}
+
+		nav .back-link {
+			font-family: var(--font-mono);
+			font-size: 0.8rem;
+			color: var(--muted);
+			letter-spacing: 0.02em;
+			transition: color 0.3s ease;
+		}
+
+		nav .back-link:hover {
+			color: var(--accent);
+		}
+
+		nav .back-link::before {
+			content: '\2190\00a0';
+		}
+
+		/* ---- Hero Banner ---- */
+		.hero {
+			margin-top: 64px;
+			padding: 5rem 2rem 4rem;
+			background: var(--elevated);
+			border-bottom: 1px solid rgba(255, 60, 0, 0.06);
+			text-align: center;
+		}
+
+		.hero-inner {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.hero .subtitle {
+			font-family: var(--font-mono);
+			font-size: 0.8rem;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--accent);
+			margin-bottom: 1rem;
+		}
+
+		.hero h1 {
+			font-family: var(--font-display);
+			font-weight: 800;
+			font-size: clamp(2.2rem, 5vw, 3.5rem);
+			color: var(--text);
+			letter-spacing: -0.03em;
+			line-height: 1.1;
+			margin-bottom: 1rem;
+		}
+
+		.hero h1 span {
+			color: var(--accent);
+		}
+
+		.hero-authors {
+			font-family: var(--font-body);
+			font-size: 1.1rem;
+			color: var(--muted);
+			margin-bottom: 1rem;
+		}
+
+		.hero-meta {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 1.5rem;
+			font-family: var(--font-mono);
+			font-size: 0.8rem;
+			color: var(--muted);
+			letter-spacing: 0.03em;
+			text-transform: uppercase;
+		}
+
+		.hero-meta .divider {
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background: var(--dim);
+		}
+
+		/* ---- Two-Column Layout ---- */
+		.content-wrap {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 3rem 2rem 6rem;
+			display: grid;
+			grid-template-columns: 260px 1fr;
+			gap: 3rem;
+			align-items: start;
+		}
+
+		/* ---- Sticky Sidebar ---- */
+		.sidebar {
+			position: sticky;
+			top: 88px;
+		}
+
+		.sidebar-section {
+			margin-bottom: 2.5rem;
+		}
+
+		.sidebar-section h3 {
+			font-family: var(--font-mono);
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--dim);
+			margin-bottom: 0.75rem;
+		}
+
+		.sidebar-links {
+			list-style: none;
+		}
+
+		.sidebar-links li {
+			margin-bottom: 0.5rem;
+		}
+
+		.sidebar-links a {
+			font-family: var(--font-body);
+			font-size: 1rem;
+			color: var(--muted);
+			transition: color 0.3s ease, padding-left 0.3s ease;
+			display: block;
+		}
+
+		.sidebar-links a:hover {
+			color: var(--accent);
+			padding-left: 4px;
+		}
+
+		.tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+
+		.tag {
+			font-family: var(--font-mono);
+			font-size: 0.7rem;
+			letter-spacing: 0.04em;
+			padding: 0.3rem 0.75rem;
+			border-radius: 100px;
+			background: var(--card);
+			color: var(--muted);
+			border: 1px solid var(--dim);
+			text-transform: uppercase;
+		}
+
+		/* ---- Award Badge ---- */
+		.award-badge {
+			background: var(--card);
+			border: 1px solid rgba(255, 60, 0, 0.25);
+			border-radius: 12px;
+			padding: 1.25rem 1rem;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+			box-shadow: 0 0 30px rgba(255, 60, 0, 0.08), inset 0 0 30px rgba(255, 60, 0, 0.03);
+		}
+
+		.award-badge::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 2px;
+			background: linear-gradient(90deg, transparent, var(--accent), var(--accent-glow), var(--accent), transparent);
+		}
+
+		.award-badge .award-icon {
+			font-size: 1.5rem;
+			margin-bottom: 0.5rem;
+			display: block;
+		}
+
+		.award-badge .award-label {
+			font-family: var(--font-mono);
+			font-size: 0.65rem;
+			text-transform: uppercase;
+			letter-spacing: 0.14em;
+			color: var(--accent);
+			line-height: 1.6;
+			font-weight: 700;
+		}
+
+		.award-badge .award-sub {
+			font-family: var(--font-mono);
+			font-size: 0.6rem;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			color: var(--muted);
+			margin-top: 0.25rem;
+		}
+
+		/* ---- Main Content ---- */
+		.main-content section {
+			margin-bottom: 3rem;
+		}
+
+		.section-label {
+			font-family: var(--font-mono);
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--dim);
+			margin-bottom: 0.5rem;
+		}
+
+		.main-content h2 {
+			font-family: var(--font-display);
+			font-weight: 700;
+			font-size: 1.6rem;
+			color: var(--text);
+			letter-spacing: -0.02em;
+			margin-bottom: 1rem;
+			padding-bottom: 0.5rem;
+			border-bottom: 1px solid rgba(255, 60, 0, 0.1);
+		}
+
+		.main-content h3 {
+			font-family: var(--font-display);
+			font-weight: 600;
+			font-size: 1.25rem;
+			color: var(--text);
+			letter-spacing: -0.01em;
+			margin-bottom: 0.75rem;
+			margin-top: 1.5rem;
+		}
+
+		.main-content p {
+			color: var(--muted);
+			margin-bottom: 1rem;
+			font-size: 1.1rem;
+			line-height: 1.8;
+		}
+
+		.main-content ul {
+			list-style: none;
+			padding: 0;
+			margin-bottom: 1rem;
+		}
+
+		.main-content ul li {
+			color: var(--muted);
+			font-size: 1.1rem;
+			line-height: 1.8;
+			padding-left: 1.5rem;
+			position: relative;
+			margin-bottom: 0.75rem;
+		}
+
+		.main-content ul li::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0.85em;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--accent);
+		}
+
+		/* ---- Video Embed ---- */
+		.video-container {
+			position: relative;
+			width: 100%;
+			border-radius: 12px;
+			overflow: hidden;
+			background: var(--card);
+			border: 1px solid rgba(255, 60, 0, 0.08);
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+			margin-bottom: 1.5rem;
+		}
+
+		.video-container iframe {
+			display: block;
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			border: none;
+		}
+
+		/* ---- Citation Block ---- */
+		.citation-block {
+			background: var(--card);
+			border: 1px solid rgba(232, 224, 212, 0.08);
+			border-radius: 10px;
+			padding: 1.25rem 1.5rem;
+			font-family: var(--font-mono);
+			font-size: 0.85rem;
+			color: var(--muted);
+			line-height: 1.7;
+			overflow-x: auto;
+		}
+
+		/* ---- Link Card ---- */
+		.link-card {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 1.25rem 1.5rem;
+			background: var(--card);
+			border: 1px solid var(--dim);
+			border-radius: 10px;
+			transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+		}
+
+		.link-card:hover {
+			border-color: var(--accent);
+			box-shadow: 0 0 20px rgba(255, 60, 0, 0.1);
+			transform: translateY(-2px);
+		}
+
+		.link-card .link-icon {
+			width: 40px;
+			height: 40px;
+			border-radius: 8px;
+			background: rgba(255, 60, 0, 0.1);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+
+		.link-card .link-icon svg {
+			width: 20px;
+			height: 20px;
+			fill: var(--accent);
+		}
+
+		.link-card .link-text {
+			min-width: 0;
+		}
+
+		.link-card .link-label {
+			font-family: var(--font-mono);
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			color: var(--dim);
+			display: block;
+			margin-bottom: 0.15rem;
+		}
+
+		.link-card .link-url {
+			font-family: var(--font-mono);
+			font-size: 0.8rem;
+			color: var(--accent);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: block;
+		}
+
+		/* ---- Methodology Cards ---- */
+		.method-cards {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 1rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.method-card {
+			background: var(--card);
+			border: 1px solid rgba(255, 60, 0, 0.1);
+			border-radius: 10px;
+			padding: 1.25rem 1.5rem;
+		}
+
+		.method-card .method-num {
+			font-family: var(--font-mono);
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			color: var(--accent);
+			margin-bottom: 0.35rem;
+			display: block;
+		}
+
+		.method-card .method-title {
+			font-family: var(--font-display);
+			font-weight: 700;
+			font-size: 1.15rem;
+			color: var(--text);
+			margin-bottom: 0.5rem;
+		}
+
+		.method-card .method-desc {
+			color: var(--muted);
+			font-size: 1rem;
+			line-height: 1.7;
+		}
+
+		/* ---- Equation Block ---- */
+		.equation-block {
+			background: var(--card);
+			border: 1px solid rgba(255, 60, 0, 0.08);
+			border-radius: 10px;
+			padding: 1.5rem;
+			margin: 1.5rem 0;
+			overflow-x: auto;
+			text-align: center;
+		}
+
+		.equation-block .MathJax {
+			color: var(--text) !important;
+		}
+
+		/* ---- Data Table ---- */
+		.data-table-wrap {
+			overflow-x: auto;
+			margin: 1rem 0 1.5rem;
+			border-radius: 10px;
+			border: 1px solid rgba(255, 60, 0, 0.08);
+		}
+
+		.data-table {
+			width: 100%;
+			border-collapse: collapse;
+			font-family: var(--font-mono);
+			font-size: 0.85rem;
+		}
+
+		.data-table thead th {
+			background: var(--card);
+			color: var(--accent);
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-size: 0.7rem;
+			padding: 0.85rem 1rem;
+			text-align: center;
+			border-bottom: 1px solid rgba(255, 60, 0, 0.15);
+		}
+
+		.data-table thead th:first-child {
+			text-align: left;
+		}
+
+		.data-table tbody td {
+			padding: 0.75rem 1rem;
+			text-align: center;
+			color: var(--muted);
+			border-bottom: 1px solid rgba(232, 224, 212, 0.04);
+		}
+
+		.data-table tbody td:first-child {
+			text-align: left;
+			color: var(--text);
+			font-weight: 700;
+		}
+
+		.data-table tbody tr:last-child td {
+			border-bottom: none;
+		}
+
+		.data-table tbody tr:hover td {
+			background: rgba(255, 60, 0, 0.03);
+		}
+
+		.table-caption {
+			font-family: var(--font-mono);
+			font-size: 0.75rem;
+			color: var(--dim);
+			margin-top: 0.5rem;
+			line-height: 1.6;
+		}
+
+		/* ---- Application Cards ---- */
+		.app-card {
+			background: var(--card);
+			border: 1px solid rgba(255, 60, 0, 0.1);
+			border-radius: 10px;
+			padding: 1.5rem;
+			margin-bottom: 1rem;
+		}
+
+		.app-card .app-title {
+			font-family: var(--font-display);
+			font-weight: 700;
+			font-size: 1.1rem;
+			color: var(--text);
+			margin-bottom: 0.5rem;
+		}
+
+		.app-card .app-desc {
+			color: var(--muted);
+			font-size: 1rem;
+			line-height: 1.7;
+		}
+
+		/* ---- Footer ---- */
+		footer {
+			border-top: 1px solid rgba(255, 60, 0, 0.06);
+			padding: 3rem 2rem;
+			text-align: center;
+		}
+
+		footer .back {
+			font-family: var(--font-mono);
+			font-size: 0.85rem;
+			color: var(--muted);
+			letter-spacing: 0.02em;
+			transition: color 0.3s ease;
+		}
+
+		footer .back:hover {
+			color: var(--accent);
+		}
+
+		footer .back::before {
+			content: '\2190\00a0';
+		}
+
+		footer .copyright {
+			font-family: var(--font-mono);
+			font-size: 0.7rem;
+			color: var(--dim);
+			margin-top: 1rem;
+		}
+
+		/* ---- Responsive ---- */
+		@media (max-width: 768px) {
+			.content-wrap {
+				grid-template-columns: 1fr;
+				padding: 2rem 1.25rem 4rem;
+				gap: 2rem;
+			}
+
+			.sidebar {
+				position: static;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.5rem;
+			}
+
+			.sidebar-section {
+				margin-bottom: 0;
+				flex: 1 1 200px;
+			}
+
+			.sidebar-section.award-section {
+				flex: 1 1 100%;
+			}
+
+			.hero {
+				padding: 3.5rem 1.25rem 2.5rem;
+			}
+
+			.hero-meta {
+				flex-wrap: wrap;
+				gap: 0.75rem;
+			}
+
+			.equation-block {
+				padding: 1rem 0.75rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav>
+		<a href="index.html" class="logo">RD.</a>
+		<a href="index.html#projects" class="back-link">Back to Projects</a>
+	</nav>
+
+	<!-- Hero Banner -->
+	<div class="hero">
+		<div class="hero-inner">
+			<div class="subtitle">NFL Big Data Bowl 2021 &mdash; Honorable Mention</div>
+			<h1>PaVE<span>:</span> Passing Value in Expectation</h1>
+			<div class="hero-authors">Udit Ranasaria, Rishav Dutta, Sachin Sanjeev, Anirudh Murali</div>
+			<div class="hero-meta">
+				<span>2021</span>
+				<span class="divider"></span>
+				<span>Kaggle Competition</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Two-Column Layout -->
+	<div class="content-wrap">
+
+		<!-- Sticky Sidebar -->
+		<aside class="sidebar">
+			<div class="sidebar-section award-section">
+				<div class="award-badge">
+					<span class="award-icon">&#127942;</span>
+					<div class="award-label">Honorable Mention</div>
+					<div class="award-sub">NFL Big Data Bowl 2021</div>
+				</div>
+			</div>
+			<div class="sidebar-section">
+				<h3>Links</h3>
+				<ul class="sidebar-links">
+					<li><a href="https://www.kaggle.com/code/dutta64/pave-the-way-for-nfl-passing-analytics" target="_blank" rel="noopener noreferrer">Kaggle Notebook</a></li>
+					<li><a href="#video-demo">Video Demo</a></li>
+				</ul>
+			</div>
+			<div class="sidebar-section">
+				<h3>Tags</h3>
+				<div class="tags">
+					<span class="tag">CNN</span>
+					<span class="tag">PyTorch</span>
+					<span class="tag">Keras</span>
+					<span class="tag">XGBoost</span>
+					<span class="tag">Sports Analytics</span>
+					<span class="tag">NFL</span>
+					<span class="tag">Tracking Data</span>
+					<span class="tag">Deep Learning</span>
+				</div>
+			</div>
+		</aside>
+
+		<!-- Main Content -->
+		<main class="main-content">
+
+			<!-- Introduction -->
+			<section id="introduction">
+				<div class="section-label">// Introduction</div>
+				<h2>Introduction</h2>
+				<p>Is it possible to quantify the dynamics of pass plays independent of the true pass thrown? How can we evaluate defensive coverage on all the valuable areas of the field? We tackle these questions by building the Passing Value in Expectation (PaVE) metric using the tracking data provided.</p>
+				<p>Any casual football viewer knows that an incomplete pass doesn&rsquo;t necessarily reflect immaculate defensive coverage, and passes can be completed despite multiple defenders draped over the receiver. Rather, coaches aim to design defensive game-plans that position defenders to minimize the value of potential passes a QB can throw based on the game situation and offensive positioning.</p>
+				<p>Key highlights of our approach:</p>
+				<ul>
+					<li><strong>Intuitive, Modular Modeling:</strong> All core aspects of the model represent how football is naturally played, with each decomposed part easily modified or replaced without affecting the overall pipeline.</li>
+					<li><strong>Trajectory-Based Analysis:</strong> Defense is often played beyond just the arrival point of the ball. We analyze an average of 1.3 million potential passes per second of game time using their trajectory provided by NFL3D (by Dutta et al.).</li>
+					<li><strong>Predictivity:</strong> The metric correlates with offensive passing output and is predictive of future offensive passing output.</li>
+				</ul>
+				<p>Much of the high-level conceptual framework behind PaVE comes from off-ball scoring opportunity in soccer (Spearman and Spearman et al.).</p>
+			</section>
+
+			<!-- Video Demo -->
+			<section id="video-demo">
+				<div class="section-label">// Video Demo</div>
+				<h2>Video Demo</h2>
+				<div class="video-container">
+					<iframe src="https://streamable.com/e/xuhfjm" allowfullscreen></iframe>
+				</div>
+			</section>
+
+			<!-- Methodology -->
+			<section id="methodology">
+				<div class="section-label">// Methodology</div>
+				<h2>Methodology</h2>
+				<p>To evaluate offensive value over all potential passes over the field, we break up the pass into 3 components:</p>
+
+				<div class="method-cards">
+					<div class="method-card">
+						<span class="method-num">Component 1</span>
+						<div class="method-title">Selection &mdash; S(p)</div>
+						<div class="method-desc">The probability that a given pass is selected to be thrown by the quarterback.</div>
+					</div>
+					<div class="method-card">
+						<span class="method-num">Component 2</span>
+						<div class="method-title">Influence &mdash; I(p)</div>
+						<div class="method-desc">Aggregate probability that a pass will be ultimately influenced by a member of the offense given that pass is thrown.</div>
+					</div>
+					<div class="method-card">
+						<span class="method-num">Component 3</span>
+						<div class="method-title">Value &mdash; V<sub>C</sub>(p), V<sub>I</sub>(p)</div>
+						<div class="method-desc">Given that a certain pass is thrown, value gained for a completion or incompletion.</div>
+					</div>
+				</div>
+
+				<div class="equation-block">
+					$$PaVE = \sum_{p \in \mathcal{F}} \underbrace{(V_C(p) \cdot I(p) + V_I(p) \cdot (1 - I(p)))}_{\text{expected pass value}} \cdot S(p)$$
+				</div>
+
+				<p>where PaVE<sub>F</sub> is per frame, and PaVE is evaluated on a play with N frames from snap to throw. We evaluate defenses as minimizing PaVE and offenses as maximizing it.</p>
+			</section>
+
+			<!-- Influence -->
+			<section id="influence">
+				<div class="section-label">// Influence</div>
+				<h2>Influence</h2>
+				<p>The basic building block for pass influence is evaluating the probability that a player <em>j</em> can arrive at a location \(\ell\) by the time the ball arrives there, <em>T</em>. We define ToA(<em>j</em>, \(\ell\)) to be the time of arrival of player <em>j</em> at \(\ell\). We assume players have a reaction time <em>t<sub>react</sub></em> to the pass and project their velocity at that time onto the vector from their location to \(\ell\).</p>
+
+				<div class="equation-block">
+					$$P_{inf}(\ell, T, j) = \left(1 + \exp\left(\frac{-\pi(T - ToA(j,\ell))}{\sqrt{3}\sigma}\right)\right)^{-1} \cdot \mathbf{1}(z \in [z_{min}, z_{max}])$$
+				</div>
+
+				<p>We integrate across the pass trajectory, modeling potential player influence PPI(p) as a sequence of Bernoulli random variables corresponding to every player-time combination along the trajectory.</p>
+			</section>
+
+			<!-- Selection -->
+			<section id="selection">
+				<div class="section-label">// Selection</div>
+				<h2>Selection</h2>
+				<p>Pass selection consists of both QB ability and QB decision-making. We define a distribution over passes based on the historical distribution of times of flight based on distance traveled.</p>
+
+				<div class="equation-block">
+					$$S(p) = H(p) \cdot (PPI_{off}(p))^{\alpha}$$
+				</div>
+
+				<p>where \(\alpha\) is a tuned hyperparameter and S(p) is normalized to be a valid probability distribution.</p>
+			</section>
+
+			<!-- Value -->
+			<section id="value">
+				<div class="section-label">// Value</div>
+				<h2>Value</h2>
+				<p>We model expected YAC (xYAC) and EPA to get expected EPA (xEPA).</p>
+
+				<h3>xYAC Model</h3>
+				<p>Used XGBoost trained on 21 features from tracking data. The 3 most important features were closest defender speed, ball y coordinate, and closest defender y coordinate. Achieved validation accuracy of 81% with an average of 2.4 yards from truth.</p>
+
+				<h3>xEPA Model</h3>
+				<p>Similar to the nflfastR EP model by Baldwin et al. Trained on the entire publicly available play-by-play dataset. Found 0.8 correlation with nflfastR EPA.</p>
+			</section>
+
+			<!-- Validation -->
+			<section id="validation">
+				<div class="section-label">// Validation</div>
+				<h2>Validation</h2>
+				<p>Football is a dynamic sport with many interacting factors and high variance outcomes. We find that PaVE is more predictive of passing yards gained than either EPA or passing yards itself.</p>
+
+				<div class="data-table-wrap">
+					<table class="data-table">
+						<thead>
+							<tr>
+								<th>bin \ bin+1</th>
+								<th>PaVE</th>
+								<th>EPA</th>
+								<th>Yards</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>PaVE</td>
+								<td>0.19</td>
+								<td>0.30</td>
+								<td>0.44</td>
+							</tr>
+							<tr>
+								<td>EPA</td>
+								<td>~</td>
+								<td>0.36</td>
+								<td>0.33</td>
+							</tr>
+							<tr>
+								<td>Yards</td>
+								<td>~</td>
+								<td>~</td>
+								<td>0.43</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="table-caption">Pearson correlation coefficient between successive 4-game bins within the 2018 NFL season.</div>
+
+				<h3>Hyperparameter Tuning</h3>
+				<p>Four model parameters tuned: max acceleration (<em>a<sub>max</sub></em> = 7.67 yd/s&sup2;), max velocity (<em>v<sub>max</sub></em> = 9.42 yd/s), influence parameter (&sigma; = 0.31s), selection parameter (&alpha; = 1.2). Additional: <em>t<sub>react</sub></em> = 0.2s, <em>z<sub>min</sub></em> = 1yd, <em>z<sub>max</sub></em> = 3yd.</p>
+			</section>
+
+			<!-- Applications -->
+			<section id="applications">
+				<div class="section-label">// Applications</div>
+				<h2>Applications</h2>
+
+				<div class="app-card">
+					<div class="app-title">Defensive Positional Breakdown</div>
+					<div class="app-desc">PaVE broken down by position reveals that cornerbacks are by far the most valuable position with respect to pass defense, confirming an expected trend wherein players closer to receivers and in more valuable areas of the field have better defensive PaVE.</div>
+				</div>
+
+				<div class="app-card">
+					<div class="app-title">Coverage Comparison on Route Combinations</div>
+					<div class="app-desc">We identified GO-OUT-CROSS-IN plays comparing good coverage vs poor coverage as measured by PaVE. This application can be used to identify the most successful coverages against various route combinations.</div>
+				</div>
+
+				<div class="app-card">
+					<div class="app-title">Defensive Player Optimization</div>
+					<div class="app-desc">We investigate PaVE as an objective function for joint optimization of defensive player trajectories. This can serve as a guide to uncover new coverage strategies against various route combinations.</div>
+				</div>
+			</section>
+
+			<!-- Conclusion -->
+			<section id="conclusion">
+				<div class="section-label">// Conclusion</div>
+				<h2>Conclusion</h2>
+				<p>PaVE represents a novel attempt at comprehensively modeling the extremely variant action that comprises an NFL passing play. This first attempt is not only a predictive measure that passes the eye test, but also a foundation for countless further applications. For example, a more mature rendition of PaVE can be used by NFL teams weekly by swapping out or honing on specific parts &mdash; shifting selection probabilities to reflect a specific QB&rsquo;s tendencies while simulating defensive schemes to minimize a receiver&rsquo;s value based on route tendencies. We truly hope that this metric PaVEs the way to new findings for passing in the NFL.</p>
+			</section>
+
+			<!-- Citation -->
+			<section id="citation">
+				<div class="section-label">// Citation</div>
+				<h2>Citation</h2>
+				<div class="citation-block">Ranasaria, U., Dutta, R., Sanjeev, S., &amp; Murali, A. (2021). PaVE the Way for NFL Passing Analytics: Passing Value in Expectation. Kaggle. NFL Big Data Bowl 2021.</div>
+			</section>
+
+			<!-- Notebook -->
+			<section id="notebook">
+				<div class="section-label">// Notebook</div>
+				<h2>Kaggle Notebook</h2>
+				<a href="https://www.kaggle.com/code/dutta64/pave-the-way-for-nfl-passing-analytics" target="_blank" rel="noopener noreferrer" class="link-card">
+					<div class="link-icon">
+						<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.281.18.046.149.034.233-.07.352l-7.04 7.04 7.43 9.451c.07.117.07.234 0 .352z"/></svg>
+					</div>
+					<div class="link-text">
+						<span class="link-label">Kaggle Notebook</span>
+						<span class="link-url">kaggle.com/code/dutta64/pave-the-way-for-nfl-passing-analytics</span>
+					</div>
+				</a>
+			</section>
+
+		</main>
+
+	</div>
+
+	<!-- Footer -->
+	<footer>
+		<a href="index.html#projects" class="back">Back to Projects</a>
+		<div class="copyright">&copy; Rishav Dutta</div>
+	</footer>
+
+</body>
+
+</html>

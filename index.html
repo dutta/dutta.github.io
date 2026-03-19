@@ -1,596 +1,1968 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-
+<html lang="en">
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142864443-1"></script>
-	<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rishav Dutta — Football Research Scientist</title>
+  <meta name="description" content="Football Research Scientist at the Cleveland Browns. Living at the intersection of sports, analytics, and creativity.">
+  <link rel="shortcut icon" href="img/logo.png">
 
-	gtag('config', 'UA-142864443-1');
-	</script>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/logo.png">
-	<!-- Author Meta -->
-	<meta name="author" content="colorlib">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<!-- Site Title -->
-	<title>Rishav Dutta</title>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142864443-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-142864443-1');
+  </script>
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
-	<!--
-			CSS
-			============================================= -->
-	<link rel="stylesheet" href="css/linearicons.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/nice-select.css">
-	<link rel="stylesheet" href="css/animate.min.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" href="css/main.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       CSS RESET & VARIABLES
+       ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg-elevated: #111116;
+      --bg-card: #16161c;
+      --accent: #FF3C00;
+      --accent-glow: #FF6B35;
+      --accent-dim: rgba(255, 60, 0, 0.15);
+      --text: #E8E0D4;
+      --text-muted: #8A8478;
+      --text-dim: #4A4640;
+      --border: rgba(232, 224, 212, 0.08);
+      --border-accent: rgba(255, 60, 0, 0.25);
+
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Crimson Pro', serif;
+      --font-mono: 'Space Mono', monospace;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ============================================
+       SCROLLBAR
+       ============================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .nav.scrolled {
+      background: rgba(10, 10, 15, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 1rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 1001;
+    }
+
+    .nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s;
+    }
+
+    /* ============================================
+       HERO SECTION
+       ============================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.4;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-text {
+      padding-top: 4rem;
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.3s forwards;
+    }
+
+    .hero-tag::before {
+      content: '//';
+      margin-right: 0.5em;
+      opacity: 0.5;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .hero-name .accent {
+      color: var(--accent);
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.7s forwards;
+    }
+
+    .hero-title strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .hero-socials {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.9s forwards;
+    }
+
+    .hero-socials a {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--ease-out-expo);
+      color: var(--text-muted);
+    }
+
+    .hero-socials a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 60, 0, 0.2);
+    }
+
+    .hero-socials svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      animation: fadeUpScale 1s var(--ease-out-expo) 0.6s forwards;
+    }
+
+    .hero-image-frame {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .hero-image-frame::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 60%;
+      height: 60%;
+      border: 2px solid var(--accent);
+      border-left: none;
+      border-bottom: none;
+      opacity: 0.4;
+      z-index: 1;
+    }
+
+    .hero-image-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: -12px;
+      width: 40%;
+      height: 40%;
+      border: 2px solid var(--accent);
+      border-right: none;
+      border-top: none;
+      opacity: 0.4;
+      z-index: 1;
+    }
+
+    .hero-image-frame img {
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      filter: grayscale(20%) contrast(1.05);
+    }
+
+    .hero-image-data {
+      position: absolute;
+      bottom: 20px;
+      left: -60px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      opacity: 0.6;
+      writing-mode: vertical-rl;
+      letter-spacing: 0.2em;
+      z-index: 3;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 1.2s forwards;
+    }
+
+    .hero-scroll span {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ============================================
+       SECTION SHARED
+       ============================================ */
+    .section {
+      padding: 8rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      line-height: 1.8;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .divider {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .divider-line {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), var(--border-accent), var(--border), transparent);
+    }
+
+    /* ============================================
+       THE COMBINE — ABOUT SECTION
+       ============================================ */
+    .combine-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; margin-top: 3rem; align-items: start; }
+    .bio p { font-size: 1.1rem; font-weight: 300; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.25rem; }
+    .bio p strong { color: var(--text); font-weight: 500; }
+    .bio-details { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--text-dim); }
+    .bio-detail-row { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: baseline; }
+    .bio-detail-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); min-width: 90px; flex-shrink: 0; }
+    .bio-detail-value { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
+    .personal-card { margin-top: 2.5rem; background: var(--bg-elevated); border: 1px solid var(--text-dim); border-radius: 4px; padding: 1.5rem 1.75rem; position: relative; overflow: hidden; }
+    .personal-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--accent), var(--accent-glow), transparent); }
+    .personal-card-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.75rem; }
+    .personal-card p { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); line-height: 1.7; }
+
+    /* Measurables panel */
+    .measurables-panel { background: var(--bg-elevated); border: 1px solid rgba(30,30,36,1); border-radius: 6px; padding: 2.5rem; position: relative; overflow: hidden; }
+    .measurables-panel::after { content: ''; position: absolute; top: -1px; left: 40px; right: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.4; }
+    .combine-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(30,30,36,1); }
+    .combine-title { font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--text); }
+    .draft-grade { display: flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--accent); border-radius: 4px; padding: 8px 16px; position: relative; overflow: hidden; }
+    .draft-grade::before { content: ''; position: absolute; inset: 0; background: var(--accent); opacity: 0.06; }
+    .draft-grade-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+    .draft-grade-value { font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--accent); line-height: 1; }
+    .column-headers { display: flex; justify-content: space-between; margin-bottom: 1rem; padding: 0 2px; }
+    .col-header { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); }
+
+    /* Skill bars */
+    .skill-row { margin-bottom: 1.25rem; }
+    .skill-row:last-child { margin-bottom: 0; }
+    .skill-info { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+    .skill-name { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--text); letter-spacing: 0.5px; }
+    .skill-meta { display: flex; align-items: baseline; gap: 12px; }
+    .skill-detail { font-size: 13px; font-weight: 300; color: var(--text-dim); font-style: italic; }
+    .skill-grade { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; min-width: 72px; text-align: center; }
+    .skill-grade.elite { color: var(--accent); background: rgba(255,60,0,0.08); border: 1px solid rgba(255,60,0,0.2); }
+    .skill-grade.advanced { color: var(--accent-glow); background: rgba(255,107,53,0.06); border: 1px solid rgba(255,107,53,0.15); }
+    .skill-grade.solid { color: var(--text-dim); background: rgba(74,70,64,0.15); border: 1px solid rgba(74,70,64,0.3); }
+    .bar-track { width: 100%; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; position: relative; }
+    .bar-fill { height: 100%; width: 0%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.22,1,0.36,1); position: relative; }
+    .bar-fill::after { content: ''; position: absolute; right: 0; top: -2px; bottom: -2px; width: 12px; border-radius: 0 3px 3px 0; opacity: 0; transition: opacity 0.5s ease 1s; }
+    .bar-fill.elite { background: linear-gradient(90deg, var(--accent), var(--accent-glow)); }
+    .bar-fill.elite::after { background: var(--accent); box-shadow: 0 0 12px var(--accent), 0 0 24px rgba(255,60,0,0.3); }
+    .bar-fill.advanced { background: linear-gradient(90deg, rgba(255,107,53,0.6), var(--accent-glow)); }
+    .bar-fill.advanced::after { background: var(--accent-glow); box-shadow: 0 0 8px var(--accent-glow); }
+    .bar-fill.solid { background: linear-gradient(90deg, var(--text-dim), var(--text-muted)); }
+    .bar-fill.solid::after { background: var(--text-muted); box-shadow: 0 0 6px var(--text-muted); }
+    .skill-row.visible .bar-fill::after { opacity: 1; }
+    .measurables-divider { height: 1px; background: rgba(30,30,36,1); margin: 1.5rem 0; }
+    .combine-footer { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid rgba(30,30,36,1); display: flex; justify-content: space-between; }
+    .combine-footer span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); }
+    @keyframes grade-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,60,0,0)} 50%{box-shadow:0 0 20px 4px rgba(255,60,0,0.15)} }
+    .draft-grade.visible { animation: grade-pulse 2.5s ease-in-out infinite; }
+
+    /* ESPN Ticker */
+    .ticker-wrapper { position: relative; width: 100vw; margin-left: calc(-50vw + 50%); background: var(--bg-elevated); border-top: 1px solid var(--text-dim); border-bottom: 1px solid var(--text-dim); overflow: hidden; height: 54px; display: flex; align-items: center; }
+    .ticker-wrapper::before, .ticker-wrapper::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; z-index: 3; background: linear-gradient(90deg, transparent 0%, var(--accent) 20%, var(--accent-glow) 50%, var(--accent) 80%, transparent 100%); opacity: 0.35; }
+    .ticker-wrapper::before { top: 0; }
+    .ticker-wrapper::after { bottom: 0; }
+    .ticker-badge { position: absolute; left: 0; top: 0; bottom: 0; z-index: 10; display: flex; align-items: center; gap: 8px; padding: 0 20px 0 16px; background: linear-gradient(90deg, var(--bg-elevated) 0%, var(--bg-elevated) 70%, transparent 100%); min-width: 110px; }
+    .ticker-badge::after { content: ''; position: absolute; right: -20px; top: 0; bottom: 0; width: 40px; background: linear-gradient(90deg, var(--bg-elevated), transparent); pointer-events: none; }
+    .badge-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: ticker-blink 1.4s ease-in-out infinite; box-shadow: 0 0 6px var(--accent), 0 0 12px rgba(255,60,0,0.3); flex-shrink: 0; }
+    @keyframes ticker-blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .badge-text { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+    .ticker-fade-right { position: absolute; right: 0; top: 0; bottom: 0; width: 80px; background: linear-gradient(270deg, var(--bg-elevated), transparent); z-index: 5; pointer-events: none; }
+    .ticker-track { display: flex; align-items: center; white-space: nowrap; animation: scroll-ticker 55s linear infinite; padding-left: 120px; }
+    .ticker-wrapper:hover .ticker-track { animation-play-state: paused; }
+    @keyframes scroll-ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .ticker-item { font-family: var(--font-mono); font-size: 11.5px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+    .ticker-wrapper:hover .ticker-item { color: var(--text); }
+    .ticker-item .hl { color: var(--accent); font-weight: 700; }
+    .ticker-sep { display: inline-flex; align-items: center; justify-content: center; margin: 0 28px; color: var(--accent); font-size: 8px; opacity: 0.6; flex-shrink: 0; }
+
+    /* ============================================
+       FILM ROOM — PROJECTS SECTION
+       ============================================ */
+    .film-strips { display: flex; flex-direction: column; gap: 2px; margin-top: 3rem; }
+
+    /* VCR bar */
+    .vcr-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; background: var(--bg-elevated);
+      border: 1px solid rgba(255,60,0,0.12); margin-bottom: 1.5rem;
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase;
+    }
+    .vcr-left { display: flex; align-items: center; gap: 20px; }
+    .vcr-rec { display: flex; align-items: center; gap: 6px; color: var(--accent); }
+    .vcr-rec-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: vcr-blink 1.2s ease-in-out infinite; box-shadow: 0 0 6px var(--accent); }
+    @keyframes vcr-blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .vcr-play { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+    .vcr-play svg { width: 10px; height: 10px; fill: var(--text-muted); }
+    .vcr-timecode { font-variant-numeric: tabular-nums; color: var(--accent-glow); }
+    .vcr-right { display: flex; align-items: center; gap: 20px; }
+
+    /* Strip */
+    .strip { background: var(--bg-elevated); border-left: 3px solid transparent; cursor: pointer; overflow: hidden; transition: border-color 0.3s, background 0.3s; }
+    .strip:hover, .strip.active { border-left-color: var(--accent); background: var(--bg-card); }
+
+    .strip-header { display: grid; grid-template-columns: 48px 100px 1fr auto auto; align-items: center; height: 64px; }
+    .strip-frame { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-align: center; letter-spacing: 1px; padding-left: 12px; }
+    .strip-thumb { width: 100px; height: 64px; overflow: hidden; position: relative; }
+    .strip-thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(40%) brightness(0.85) sepia(15%) contrast(1.1); transition: filter 0.4s; }
+    .strip:hover .strip-thumb img, .strip.active .strip-thumb img { filter: grayscale(15%) brightness(0.9) sepia(8%); }
+    .strip-thumb::after { content: ''; position: absolute; inset: 0; border-right: 1px solid rgba(255,255,255,0.04); }
+    .strip-info { display: flex; align-items: center; gap: 16px; padding: 0 24px; overflow: hidden; }
+    .strip-name { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--text); white-space: nowrap; transition: color 0.3s; }
+    .strip:hover .strip-name { color: #fff; }
+    .strip-dash { width: 16px; height: 1px; background: var(--text-dim); flex-shrink: 0; }
+    .strip-year { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+    .strip-tags { display: flex; gap: 6px; padding-right: 16px; flex-shrink: 0; }
+    .strip-tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); padding: 4px 10px; border: 1px solid var(--border); transition: border-color 0.3s, color 0.3s; }
+    .strip:hover .strip-tag { border-color: var(--border-accent); color: var(--text-muted); }
+    .strip-toggle { width: 48px; height: 64px; display: flex; align-items: center; justify-content: center; }
+    .strip-toggle-icon { width: 20px; height: 20px; position: relative; }
+    .strip-toggle-icon::before, .strip-toggle-icon::after { content: ''; position: absolute; background: var(--text-dim); transition: background 0.3s, transform 0.4s var(--ease-out-expo); }
+    .strip-toggle-icon::before { width: 12px; height: 1.5px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .strip-toggle-icon::after { width: 1.5px; height: 12px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .strip:hover .strip-toggle-icon::before, .strip:hover .strip-toggle-icon::after { background: var(--accent); }
+    .strip.active .strip-toggle-icon::after { transform: translate(-50%,-50%) rotate(90deg); opacity: 0; }
+
+    /* Panel */
+    .strip-panel { max-height: 0; overflow: hidden; transition: max-height 0.7s var(--ease-out-expo); }
+    .strip.active .strip-panel { max-height: 800px; }
+    .strip-panel-inner { padding: 0 24px 32px 48px; }
+    .strip-content-top { display: flex; gap: 32px; align-items: flex-start; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.04); }
+
+    /* Preview image with film treatment */
+    .strip-preview {
+      width: 560px; min-width: 560px; height: 340px;
+      overflow: hidden; position: relative; flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.08); background: #000;
+    }
+    .strip-preview img, .strip-preview iframe { width: 100%; height: 100%; object-fit: cover; display: block; border: none; }
+    .strip-preview img { filter: grayscale(20%) brightness(0.88) sepia(10%) contrast(1.08); transition: filter 0.4s; }
+    .strip.active .strip-preview img { filter: grayscale(10%) brightness(0.92) sepia(5%) contrast(1.05); }
+
+    /* Film chrome overlays */
+    .ov-vignette { position: absolute; inset: 0; z-index: 4; pointer-events: none; background: radial-gradient(ellipse at center, transparent 55%, rgba(10,10,15,0.45) 100%); }
+    .ov-interlace { position: absolute; inset: 0; z-index: 8; pointer-events: none; background: repeating-linear-gradient(0deg, transparent 0px, transparent 1px, rgba(0,0,0,0.025) 1px, rgba(0,0,0,0.025) 2px); }
+    .ov-brackets { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
+    .bkt { position: absolute; width: 18px; height: 18px; }
+    .bkt-tl { top: 8px; left: 8px; border-top: 1.5px solid rgba(255,60,0,0.45); border-left: 1.5px solid rgba(255,60,0,0.45); }
+    .bkt-tr { top: 8px; right: 8px; border-top: 1.5px solid rgba(255,60,0,0.45); border-right: 1.5px solid rgba(255,60,0,0.45); }
+    .bkt-bl { bottom: 8px; left: 8px; border-bottom: 1.5px solid rgba(255,60,0,0.45); border-left: 1.5px solid rgba(255,60,0,0.45); }
+    .bkt-br { bottom: 8px; right: 8px; border-bottom: 1.5px solid rgba(255,60,0,0.45); border-right: 1.5px solid rgba(255,60,0,0.45); }
+    .ov-rec { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 10; pointer-events: none; display: flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 8px; font-weight: 700; color: #ff0000; letter-spacing: 1px; animation: rec-fade 2.5s ease-in-out infinite; }
+    .ov-rec .rd { width: 5px; height: 5px; border-radius: 50%; background: #ff0000; box-shadow: 0 0 4px #ff0000; }
+    @keyframes rec-fade { 0%,40%,100%{opacity:0} 50%,90%{opacity:0.6} }
+
+    /* HUD — 4 corners, no overlap */
+    .hud-tl { position: absolute; top: 12px; left: 12px; z-index: 10; pointer-events: none; background: rgba(8,8,12,0.9); border: 1px solid rgba(255,60,0,0.4); padding: 5px 12px; font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+    .hud-tl .hl { color: var(--accent); }
+    .hud-tl .sep { width: 1px; height: 10px; background: rgba(255,255,255,0.2); }
+    .hud-tr { position: absolute; top: 12px; right: 12px; z-index: 10; pointer-events: none; display: flex; gap: 4px; }
+    .hud-badge { background: rgba(8,8,12,0.9); border: 1px solid rgba(255,255,255,0.12); padding: 4px 8px; font-family: var(--font-mono); font-size: 8px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+    .hud-badge.hi { color: var(--accent); border-color: rgba(255,60,0,0.3); }
+    .hud-bl { position: absolute; bottom: 12px; left: 12px; z-index: 10; pointer-events: none; background: rgba(8,8,12,0.88); border-left: 2px solid var(--accent); padding: 5px 12px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-glow); max-width: 340px; line-height: 1.4; }
+    .hud-br { position: absolute; bottom: 12px; right: 12px; z-index: 10; pointer-events: none; font-family: var(--font-mono); font-size: 10px; color: var(--accent); background: rgba(8,8,12,0.88); padding: 4px 10px; letter-spacing: 1px; border: 1px solid rgba(255,60,0,0.25); }
+
+    /* Scouting report — right side */
+    .report { flex: 1; min-width: 0; }
+    .report-header { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,60,0,0.2); display: flex; align-items: center; gap: 8px; }
+    .report-header::before { content: ''; width: 8px; height: 8px; border: 1.5px solid var(--accent); border-radius: 50%; flex-shrink: 0; }
+    .report-title { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: #fff; margin-bottom: 20px; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.5px; }
+    .report-section { margin-bottom: 16px; }
+    .report-label { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 700; }
+    .report-text { font-family: var(--font-body); font-weight: 300; font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+    .report-reads { list-style: none; padding: 0; }
+    .report-reads li { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.5px; color: var(--text); padding: 5px 0 5px 18px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.03); line-height: 1.5; }
+    .report-reads li::before { content: ''; position: absolute; left: 0; top: 11px; width: 6px; height: 6px; border: 1.5px solid var(--accent); border-radius: 50%; }
+    .report-reads li:last-child { border-bottom: none; }
+    .report-result { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #E8C547; padding: 6px 14px; background: rgba(232,197,71,0.08); border: 1px solid rgba(232,197,71,0.2); }
+    .report-result.standard { color: var(--text-muted); background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); }
+    .report-result::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+    .report-row { display: flex; gap: 32px; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.04); }
+    .report-field-label { font-family: var(--font-mono); font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 3px; }
+    .report-field-value { font-family: var(--font-mono); font-size: 11px; color: var(--text); letter-spacing: 0.5px; }
+    .report-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); text-decoration: none; padding: 8px 0; position: relative; transition: color 0.3s; }
+    .report-link::after { content: ''; position: absolute; bottom: 4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+    .report-link:hover::after { width: 100%; }
+    .report-link:hover { color: var(--accent-glow); }
+    .report-link svg { width: 14px; height: 14px; transition: transform 0.3s; }
+    .report-link:hover svg { transform: translateX(4px); }
+
+    /* Film footer */
+    .film-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding: 16px 20px; background: var(--bg-elevated); border: 1px solid var(--border); font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
+    .film-footer-left { display: flex; align-items: center; gap: 24px; }
+    .film-footer-sep { width: 1px; height: 12px; background: rgba(255,255,255,0.06); }
+
+    /* Strip entrance */
+    .strip { opacity: 0; transform: translateY(12px); }
+    .strip.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; }
+
+    /* ============================================
+       DEPTH CHART + CAREER WAR — CAREER SECTION
+       ============================================ */
+    .board { background: #0e0e14; border: 1px solid #1e1e26; border-radius: 16px; padding: 2.5rem 2rem; position: relative; overflow: hidden; margin-top: 3rem; }
+    .board::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-glow), transparent); }
+    .board-clip { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 80px; height: 28px; background: #2a2a34; border-radius: 4px 4px 8px 8px; border: 2px solid #3a3a44; z-index: 2; }
+    .board-clip::after { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 30px; height: 10px; border-radius: 5px; background: #1a1a22; border: 1px solid #3a3a44; }
+    .board-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.25rem; padding-bottom: 1.25rem; border-bottom: 1px dashed var(--text-dim); }
+    .board-title-area { display: flex; align-items: center; gap: 14px; }
+    .board-icon { width: 36px; height: 36px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 14px; color: #fff; }
+    .board-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); }
+    .board-season { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+
+    /* Position rows */
+    .position-row { display: grid; grid-template-columns: 200px 1fr; margin-bottom: 1.25rem; opacity: 0; transform: translateX(-40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .position-row.visible { opacity: 1; transform: translateX(0); }
+    .position-label { display: flex; flex-direction: column; align-items: flex-start; padding: 1.25rem 1.25rem 1.25rem 0; border-right: 2px solid #1e1e26; position: relative; }
+    .position-code { font-family: var(--font-display); font-weight: 800; font-size: 32px; color: var(--text); line-height: 1; transition: color 0.3s; }
+    .position-row:hover .position-code { color: var(--accent); }
+    .position-nickname { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-top: 6px; }
+    .position-group-name { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .position-label::after { content: ''; position: absolute; right: -5px; top: 30px; width: 8px; height: 8px; background: #1e1e26; border-radius: 50%; transition: background 0.3s, box-shadow 0.3s; }
+    .position-row:hover .position-label::after { background: var(--accent); box-shadow: 0 0 12px rgba(255,60,0,0.5); }
+    .card-area { padding: 0.75rem 0 0.75rem 1.75rem; display: flex; flex-direction: column; gap: 0.625rem; }
+
+    /* Player cards */
+    .player-card { background: #131319; border: 1px solid #1e1e26; border-radius: 10px; padding: 1.25rem 1.5rem; position: relative; transition: all 0.35s var(--ease-out-expo); cursor: default; overflow: hidden; }
+    .player-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--text-dim); transition: background 0.3s, width 0.3s; }
+    .player-card:hover { border-color: rgba(255,60,0,0.3); background: #161620; transform: translateX(4px); box-shadow: -4px 0 20px rgba(255,60,0,0.05), 0 4px 20px rgba(0,0,0,0.3); }
+    .player-card:hover::before { background: var(--accent); }
+    .player-card.starter { border-color: rgba(255,60,0,0.15); }
+    .player-card.starter::before { background: var(--accent); }
+    .player-card.captain { border-color: rgba(255,60,0,0.25); background: linear-gradient(135deg, #131319 0%, rgba(255,60,0,0.03) 100%); animation: subtle-pulse 4s ease-in-out infinite; }
+    .player-card.captain::before { background: linear-gradient(180deg, var(--accent), var(--accent-glow)); width: 4px; }
+    @keyframes subtle-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,60,0,0)} 50%{box-shadow:0 0 20px 2px rgba(255,60,0,0.06)} }
+    .card-pin { position: absolute; top: -4px; right: 20px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #ff6b5a, #cc2200); box-shadow: 0 2px 8px rgba(255,60,0,0.4); z-index: 2; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; }
+    .card-role { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text); line-height: 1.2; }
+    .card-company { font-weight: 400; font-size: 16px; color: var(--accent-glow); margin-top: 2px; }
+    .card-dates { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+    .jersey-number { font-family: var(--font-display); font-weight: 800; font-size: 38px; color: #16161c; line-height: 1; position: absolute; top: 12px; right: 16px; user-select: none; transition: color 0.3s; }
+    .player-card:hover .jersey-number { color: rgba(255,60,0,0.08); }
+    .player-card.captain .jersey-number { color: rgba(255,60,0,0.06); }
+    .dc-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 10px; }
+    .badge-captain { background: rgba(255,60,0,0.12); color: var(--accent); border: 1px solid rgba(255,60,0,0.25); }
+    .badge-starter { background: rgba(255,107,53,0.08); color: var(--accent-glow); border: 1px solid rgba(255,107,53,0.15); }
+    .card-details { margin-top: 0; padding-top: 0; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s var(--ease-out-expo), opacity 0.3s, margin-top 0.3s, padding-top 0.3s; }
+    .player-card:hover .card-details, .player-card.captain .card-details { max-height: 200px; opacity: 1; margin-top: 0.875rem; padding-top: 0.875rem; border-top: 1px solid #1e1e26; }
+    .detail-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; font-size: 14px; color: var(--text-muted); line-height: 1.4; }
+    .detail-bullet { color: var(--accent); font-size: 8px; margin-top: 5px; flex-shrink: 0; }
+    .skills-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .dc-skill-tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); background: rgba(255,255,255,0.03); border: 1px solid #1e1e26; padding: 3px 8px; border-radius: 4px; transition: all 0.2s; letter-spacing: 0.5px; }
+    .player-card:hover .dc-skill-tag { border-color: rgba(255,60,0,0.15); color: var(--text-muted); }
+
+    /* Publication cards */
+    .pub-card { background: #131319; border: 1px solid #1e1e26; border-radius: 8px; padding: 0.875rem 1.125rem; display: flex; align-items: center; gap: 0.875rem; transition: all 0.3s; cursor: default; position: relative; overflow: hidden; }
+    .pub-card::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: var(--text-dim); transition: background 0.3s; }
+    .pub-card:hover { border-color: rgba(255,60,0,0.2); transform: translateX(4px); background: #161620; }
+    .pub-card:hover::before { background: var(--accent); }
+    .pub-year { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 1px; flex-shrink: 0; width: 40px; }
+    .pub-title { font-size: 15px; color: var(--text); flex: 1; line-height: 1.3; }
+    .pub-venue { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); flex-shrink: 0; text-align: right; }
+    .pub-badge { font-family: var(--font-mono); font-size: 9px; color: var(--accent); background: rgba(255,60,0,0.08); border: 1px solid rgba(255,60,0,0.15); padding: 2px 7px; border-radius: 3px; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0; white-space: nowrap; }
+
+    /* Education card in depth chart */
+    .dc-edu-card { background: #131319; border: 1px solid #1e1e26; border-radius: 10px; padding: 1.25rem 1.5rem; position: relative; transition: all 0.35s var(--ease-out-expo); overflow: hidden; }
+    .dc-edu-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--text-dim); transition: background 0.3s; }
+    .dc-edu-card:hover { border-color: rgba(255,60,0,0.2); transform: translateX(4px); }
+    .dc-edu-card:hover::before { background: var(--accent); }
+    .dc-edu-school { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text); }
+    .dc-edu-degree { font-size: 15px; color: var(--accent-glow); margin-top: 4px; }
+    .dc-edu-sub { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+    .dc-edu-dates { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); position: absolute; top: 20px; right: 24px; letter-spacing: 1px; }
+
+    /* Career WAR chart */
+    .war-section { margin-top: 5rem; position: relative; }
+    .war-current { position: absolute; top: 0; right: 0; text-align: right; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease 2.8s, transform 0.8s ease 2.8s; }
+    .war-current.visible { opacity: 1; transform: translateY(0); }
+    .war-current-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; }
+    .war-current-value { font-family: var(--font-display); font-weight: 800; font-size: clamp(48px,8vw,80px); line-height: 1; color: var(--accent); text-shadow: 0 0 40px rgba(255,60,0,0.4); }
+    .war-current-unit { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; color: var(--text-muted); margin-top: 4px; }
+    .chart-container { position: relative; width: 100%; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem 1.875rem 1.875rem; overflow: visible; margin-top: 5rem; }
+    .chart-inner { position: relative; width: 100%; height: 420px; }
+    .chart-svg { width: 100%; height: 100%; overflow: visible; }
+    .grid-line { stroke: rgba(255,255,255,0.03); stroke-width: 1; }
+    .grid-line-major { stroke: rgba(255,255,255,0.06); stroke-width: 1; }
+    .era-band { opacity: 0; transition: opacity 1s ease; }
+    .era-band.visible { opacity: 1; }
+    .axis-label { font-family: var(--font-mono); font-size: 11px; fill: var(--text-dim); }
+    .axis-label-year { font-family: var(--font-mono); font-size: 11px; fill: var(--text-muted); }
+    .y-axis-label { font-family: var(--font-mono); font-size: 10px; fill: var(--text-dim); }
+    .war-line { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: url(#glow); }
+    .milestone-dot { opacity: 0; transition: opacity 0.4s ease; }
+    .milestone-dot.visible { opacity: 1; }
+    .milestone-dot-inner { fill: var(--accent); filter: url(#dot-glow); }
+    .milestone-dot-outer { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0.4; }
+    .milestone-dot-ring { fill: none; stroke: var(--accent); stroke-width: 1; opacity: 0; }
+    .milestone-dot.visible .milestone-dot-ring { opacity: 0.2; animation: ring-expand 1.5s ease-out forwards; }
+    @keyframes ring-expand { 0%{r:5;opacity:0.4} 100%{r:16;opacity:0} }
+    .milestone-vline { stroke: var(--text-dim); stroke-width: 1; stroke-dasharray: 3,4; opacity: 0; transition: opacity 0.4s ease; }
+    .milestone-vline.visible { opacity: 0.4; }
+    .annotation { opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: none; }
+    .annotation.visible { opacity: 1; transform: translateY(0); }
+    .annotation-card { position: absolute; width: 180px; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; backdrop-filter: blur(8px); pointer-events: auto; }
+    .annotation-card::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 1px; height: 12px; background: var(--text-dim); opacity: 0.3; }
+    .annotation-card.above::before { bottom: -12px; }
+    .annotation-card.below::before { top: -12px; }
+    .annotation-year { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--accent); margin-bottom: 4px; }
+    .annotation-title { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+    .annotation-desc { font-weight: 300; font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+    .war-legend { display: flex; gap: 1.75rem; margin-top: 1.875rem; padding-top: 1.25rem; border-top: 1px solid var(--border); opacity: 0; transition: opacity 0.8s ease 3s; }
+    .war-legend.visible { opacity: 1; }
+    .legend-item { display: flex; align-items: center; gap: 8px; }
+    .legend-swatch { width: 24px; height: 8px; border-radius: 2px; opacity: 0.5; }
+    .legend-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); }
+
+    /* Education section removed — now part of depth chart */
+
+    /* ============================================
+       CONTACT SECTION
+       ============================================ */
+    .contact-section {
+      text-align: center;
+      padding-bottom: 4rem;
+    }
+
+    .contact-section .section-label {
+      justify-content: center;
+    }
+
+    .contact-section .section-label::before {
+      display: none;
+    }
+
+    .contact-section .section-heading {
+      margin-bottom: 1rem;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      font-weight: 700;
+      color: var(--accent);
+      margin: 2rem 0;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .contact-email:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .contact-socials a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .contact-socials a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(255, 60, 0, 0.1);
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      padding: 2rem 3rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUpScale {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+      }
+      .hero-text { padding-top: 6rem; order: 1; }
+      .hero-image-wrap { order: 2; }
+      .hero-socials { justify-content: center; }
+      .hero-image-frame { max-width: 350px; }
+      .hero-image-data { display: none; }
+
+      .combine-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .strip-preview { width: 420px; min-width: 420px; height: 260px; }
+      .strip-header { grid-template-columns: 36px 72px 1fr auto; height: 56px; }
+      .strip-tags { display: none; }
+      .strip-content-top { flex-direction: column; }
+      .strip-preview { width: 100%; min-width: 0; }
+      .strip-thumb { width: 72px; }
+      .strip-panel-inner { padding: 0 16px 24px 36px; }
+      .position-row { grid-template-columns: 1fr; }
+      .position-label { border-right: none; border-bottom: 1px solid #1e1e26; padding: 0.75rem 0; flex-direction: row; align-items: center; gap: 0.75rem; }
+      .position-label::after { display: none; }
+      .card-area { padding: 0.75rem 0; }
+      .pub-card { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .pub-venue { text-align: left; }
+      .war-current { position: relative; top: 0; right: 0; text-align: left; margin-bottom: 2.5rem; }
+      .chart-inner { height: 320px; }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 5rem 1.5rem; }
+      .nav { padding: 1rem 1.5rem; }
+      .nav.scrolled { padding: 0.75rem 1.5rem; }
+      .divider { padding: 0 1.5rem; }
+
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 15, 0.97);
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 999;
+      }
+      .nav-links.open a {
+        font-size: 1rem;
+        color: var(--text);
+      }
+      .nav-toggle { display: flex; }
+
+      .hero-content { padding: 0 1.5rem; }
+      .hero-name { font-size: 3rem; }
+      .strip-header { grid-template-columns: 36px 1fr auto; }
+      .strip-thumb { display: none; }
+      .vcr-right { display: none; }
+      .strip-preview { height: 200px; }
+      .report-row { flex-direction: column; gap: 12px; }
+      .contact-socials { flex-direction: column; align-items: center; }
+      .hero-scroll { display: none; }
+      .ticker-wrapper { height: 48px; }
+      .ticker-item { font-size: 10.5px; }
+      .ticker-badge { min-width: 95px; padding: 0 14px 0 12px; }
+      .ticker-track { padding-left: 100px; }
+      .war-legend { flex-wrap: wrap; gap: 1rem; }
+    }
+  </style>
 </head>
 
 <body>
 
-	<!-- Start Preloader Area -->
-	<div class="preloader-area">
-		<div class="loader-box">
-			<div class="loader"></div>
-		</div>
-	</div>
-	<!-- End Preloader Area -->
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">RD<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
 
 
-	<!-- Start Header Area -->
-	<header id="header">
-		<div class="container main-menu">
-			<div class="row align-items-center d-flex">
-				<div id="logo">
-					<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
-				</div>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<!-- <li class=""><a class="active" href="index.html">Home</a></li> -->
-						<li><a href="#aboutme">About Me</a></li>
-						<li><a href="#work">Projects</a></li>
-						<li ><a href="#job">Work History</a></li>
-						<li ><a href="#edu">Education</a></li>
-						<li ><a href="#contact">Contact</a></li>
-						
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</header>
-	<!-- End Header Area -->
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <div class="hero-grid"></div>
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-tag">Football Research Scientist</div>
+        <h1 class="hero-name">
+          Rishav<br>Dutta<span class="accent">.</span>
+        </h1>
+        <div class="hero-title">
+          Where the <strong>gridiron</strong> meets the <strong>algorithm</strong>.<br>
+          Currently at the <strong>Cleveland Browns</strong>.
+        </div>
+
+        <div class="hero-socials">
+          <a href="https://www.linkedin.com/in/rishavdutta/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://github.com/dutta" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+          <a href="https://twitter.com/rishavd64" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <div class="hero-image-frame">
+          <img src="img/rishavcrop2.png" alt="Rishav Dutta">
+          <div class="hero-image-data">47.6062°N // 122.3321°W</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
 
-	<!-- start banner Area -->
-	<section class="home-banner-area">
-		<div class="container">
-			<div class="row fullscreen d-flex align-items-center">
-				<div class="banner-content col-lg-6 col-md-12 justify-content-center ">
-					<div class="me wow fadeInDown" data-wow-duration="1s" data-wow-delay="1.2s">It's me</div>
-					<h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.7s">Rishav Dutta</h1>
-					<div class="designation mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.1s">
-						Experienced
-						<span class="designer">Football Research Scientist</span>
-						at the
-						<span class="developer">
-							Cleveland Browns
-						</span>
-					</div>	
-					
-									
-					<div class="footer-top flex-column">
-						<div class="footer-logo">
-								<div class="footer-social" style="font-size:35px;">
-									<a href="https://www.linkedin.com/in/rishavdutta/"><i class="genric-btn default-border fa fa-linkedin" style="color: #90acd1;padding: 30px;"></i></a>
-									<a href="https://github.com/dutta"><i class="genric-btn default-border fa fa-github" style="color: #90acd1;padding: 30px;"></i></a>
-									<a href="https://twitter.com/rishavd64"><i class="genric-btn default-border fa fa-twitter" style="color: #90acd1;padding: 30px;"></i></a>
-									<a href="https://www.facebook.com/rishav.dutta.5"><i class="genric-btn default-border fa fa-facebook" style="color: #90acd1;padding: 30px;"></i></a>
-								</div>
-							</div>
-						
-					</div>
-									
-								
-					
-							
-					
-					
-					
-					<!-- <a href="#" class="primary-btn" data-text="Learn More">
-						<span>L</span>
-						<span>e</span>
-						<span>a</span>
-						<span>r</span>
-						<span>n</span>
-						<span> </span>
-						<span>M</span>
-						<span>o</span>
-						<span>r</span>
-						<span>e</span>
-					</a> -->
-				</div>
-				<div class="banner-img col-lg-6 col-md-6 align-self-end">
-					<img class="img-fluid" src="img/rishavcrop2.png" alt="">
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End banner Area -->
+  <!-- ==================== DIVIDER ==================== -->
+  <div class="divider"><div class="divider-line"></div></div>
 
 
-	<!-- Start brands Area -->
-	<section class="brands-area">
-		<div class="container">
-			<div class="brand-wrap">
-				<div class="row align-items-center active-brand-carusel justify-content-start no-gutters">
-					<div class="col single-brand">
-						<a href="https://www.cmu.edu/"><img class="mx-auto" src="img/brand/cmulogo.png" alt=""></a>
-					</div>
-					<div class="col single-brand">
-						<a href="https://www.cs.cmu.edu/"><img class="mx-auto" src="img/brand/scs.png" alt=""></a>
-					</div>
-					<div class="col single-brand">
-						<a href="https://bsd405.org/interlake/"><img class="mx-auto" src="img/brand/ilake.jpg" alt=""></a>
-					</div>
-					<div class="col single-brand">
-						<a href="https://www.ibo.org/"><img class="mx-auto" src="img/brand/ib.png" alt=""></a>
-					</div>
-					<div class="col single-brand">
-						<a href="https://www.ml.cmu.edu/"><img class="mx-auto" src="img/brand/ml.jpg" alt=""></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End brands Area -->
+  <!-- ==================== THE COMBINE — ABOUT ==================== -->
+  <section class="section" id="about">
+    <div class="reveal">
+      <div class="section-label">01 — About</div>
+      <h2 class="section-heading">The Combine<span style="color:var(--accent)">.</span></h2>
+    </div>
+
+    <div class="combine-grid">
+      <div class="bio reveal">
+        <p><strong>Senior AI Research Scientist</strong> with the Cleveland Browns, operating at the intersection of machine learning and professional football. Four NFL seasons of building models that quantify what scouts feel and coaches know.</p>
+        <p>Trained at <strong>Carnegie Mellon University</strong>'s School of Computer Science — B.S. in Computer Science with a Minor in Machine Learning, supplemented by research in Statistics &amp; Data Science. Six peer-reviewed publications spanning computer vision, NLP, and sports analytics.</p>
+        <div class="bio-details">
+          <div class="bio-detail-row"><span class="bio-detail-label">Education</span><span class="bio-detail-value">Carnegie Mellon SCS — B.S. CS, ML Minor</span></div>
+          <div class="bio-detail-row"><span class="bio-detail-label">Role</span><span class="bio-detail-value">Sr. AI Research Scientist, Cleveland Browns</span></div>
+          <div class="bio-detail-row"><span class="bio-detail-label">Seasons</span><span class="bio-detail-value">4 NFL seasons</span></div>
+          <div class="bio-detail-row"><span class="bio-detail-label">Published</span><span class="bio-detail-value">6 publications — JQAS, Big Data Bowl, CMU</span></div>
+        </div>
+        <div class="personal-card">
+          <div class="personal-card-label">Off the field</div>
+          <p>Plays football, soccer, cricket, and basketball. Browns faithful since day one, Seattle Sounders supporter. Shares the apartment with two cats who couldn't care less about any of the above.</p>
+        </div>
+      </div>
+
+      <div class="measurables-panel reveal" id="measurablesPanel">
+        <div class="combine-header">
+          <span class="combine-title">Combine Results</span>
+          <div class="draft-grade" id="draftGrade"><span class="draft-grade-label">Draft Grade</span><span class="draft-grade-value">A+</span></div>
+        </div>
+        <div class="column-headers"><span class="col-header">Measurable</span><span class="col-header">Grade</span></div>
+        <div id="skillBars"></div>
+        <div class="combine-footer"><span>Cleveland, OH</span><span>2021 – Present</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ESPN TICKER ==================== -->
+  <div class="ticker-wrapper">
+    <div class="ticker-badge"><span class="badge-dot"></span><span class="badge-text">Live</span></div>
+    <div class="ticker-track" id="tickerTrack"></div>
+    <div class="ticker-fade-right"></div>
+  </div>
+
+  <!-- ==================== DIVIDER ==================== -->
+  <div class="divider"><div class="divider-line"></div></div>
 
 
-	<!-- Start About Area -->
-	<section class="about-area section-gap" id="aboutme">
-		<div class="container">
-			<div class="row align-items-center justify-content-between">
-				<div class="col-lg-6 about-left">
-					<img class="img-fluid" src="img/loo_moo.png" alt="" style="width:80%;">
-				</div>
-				<div class="col-lg-5 col-md-12 about-right">
-					<div class="section-title">
-						<h2>About Me</h2>
-					</div>
-					<div class="mb-50 wow fadeIn" data-wow-duration=".8s">
-						<p>
-							Outside of my work I enjoy spending time outdoors playing sports such as football, soccer, cricket, and basketball. I love watching the Browns and Sounders play and am waiting for the inevitable day the Supersonics return. Other than that, I love spending time with my friends and my two little cats. 
-						</p>
-					</div>
-					<a href="#job" class="genric-btn primary circle" data-text="Work History">
-					Job History
-					</a>
-					<a href="#edu" class="genric-btn primary circle" style="float: right;" data-text="Education History">
-					Education History
-					</a>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End About Area -->
+  <!-- ==================== FILM ROOM — PROJECTS ==================== -->
+  <section class="section" id="projects">
+    <div class="reveal">
+      <div class="section-label">02 — Projects</div>
+      <h2 class="section-heading">The Film Room</h2>
+      <p class="section-desc">Breaking down the game tape. Selected research, publications, and tools — reviewed frame by frame.</p>
+    </div>
+
+    <div class="vcr-bar reveal">
+      <div class="vcr-left">
+        <div class="vcr-rec"><div class="vcr-rec-dot"></div> Rec</div>
+        <div class="vcr-play"><svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg> Play</div>
+        <span>CH-02</span>
+      </div>
+      <div class="vcr-right">
+        <span>10 Clips</span>
+        <span class="vcr-timecode" id="vcr-time">00:00:00:00</span>
+      </div>
+    </div>
+
+    <div class="film-strips" id="strips">
+
+      <!-- 01: PaVE -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">01</div>
+          <div class="strip-thumb"><img src="img/work/pave_thumb.jpg" alt="PaVE"></div>
+          <div class="strip-info"><span class="strip-name">PaVE: Passing Value in Expectation</span><span class="strip-dash"></span><span class="strip-year">2021</span></div>
+          <div class="strip-tags"><span class="strip-tag">Publication</span><span class="strip-tag">CNN</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <iframe src="https://streamable.com/e/xuhfjm" allowfullscreen></iframe>
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Publication</span><span class="sep"></span>2021</div>
+            <div class="hud-tr"><div class="hud-badge hi">PyTorch</div><div class="hud-badge">Keras</div><div class="hud-badge">CNN</div></div>
+            <div class="hud-bl">Kaggle // NFL Big Data Bowl 2021</div>
+            <div class="hud-br">TC 01:12:04:18</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 01</div>
+            <div class="report-title">PaVE the Way for<br>NFL Passing Analytics</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">NFL Big Data Bowl 2021 entry. Quantifying what passing value actually looks like using spatial deep learning on tracking data.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>CNN-based spatial modeling of the football field with zone-level predictive value</li><li>Quantified defensive impact and QB quality through player tracking data</li><li>Assigned credit to individual players via model input analysis</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result">Honorable Mention — NFL Big Data Bowl</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Ranasaria, Dutta, Sanjeev, Murali</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">PyTorch, Keras, CNN</div></div></div>
+            <a href="pave.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 02: NFL3D -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">02</div>
+          <div class="strip-thumb"><img src="img/work/zaxis.png" alt="NFL3D"></div>
+          <div class="strip-info"><span class="strip-name">NFL3D: Adding the Third Dimension</span><span class="strip-dash"></span><span class="strip-year">2021</span></div>
+          <div class="strip-tags"><span class="strip-tag">Research</span><span class="strip-tag">R</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/zaxis.png" alt="NFL3D">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Research</span><span class="sep"></span>2021</div>
+            <div class="hud-tr"><div class="hud-badge hi">R</div><div class="hud-badge">3D Viz</div></div>
+            <div class="hud-bl">CMU Sports Analytics Conference</div>
+            <div class="hud-br">TC 02:34:11:06</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 02</div>
+            <div class="report-title">NFL3D: Adding the<br>Third Dimension</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">NFL tracking data is 2D. The ball moves in 3D. That gap was the problem.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Algorithm to interpolate z-axis from publicly available tracking data</li><li>Enables precise 3D ball trajectory analysis on any play</li><li>Real-time flight path estimation at any point during a play</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result standard">Conference Presentation — Research Poster</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Dutta, R. (2021)</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">R, Interpolation</div></div></div>
+            <a href="nfl3d.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 03: nflscrapR -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">03</div>
+          <div class="strip-thumb"><img src="img/work/ngs.png" alt="nflscrapR"></div>
+          <div class="strip-info"><span class="strip-name">nflscrapR</span><span class="strip-dash"></span><span class="strip-year">2020</span></div>
+          <div class="strip-tags"><span class="strip-tag">R Package</span><span class="strip-tag">Open Source</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/ngs.png" alt="nflscrapR">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">R Package</span><span class="sep"></span>2020</div>
+            <div class="hud-tr"><div class="hud-badge hi">R</div><div class="hud-badge">EPA/WPA</div></div>
+            <div class="hud-bl">Recognized by NFL Dir. of Data &amp; Analytics</div>
+            <div class="hud-br">TC 03:07:22:09</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 03</div>
+            <div class="report-title">nflscrapR: NFL<br>Play-by-Play in R</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">The football analytics community needed clean, accessible play-by-play data. We built the pipeline.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>R package for seamless retrieval of NFL play-by-play data via web scraping</li><li>Expected Points (EPA) and Win Probability (WPA) models built in</li><li>Adopted by The Athletic, FiveThirtyEight, and the broader analytics community</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result">Industry Standard — Used by Major Outlets</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Horowitz, Yurko, Ventura, Dutta</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">R, Web Scraping, API</div></div></div>
+            <a href="ngs.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 04: Unsupervised DBs -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">04</div>
+          <div class="strip-thumb"><img src="img/work/unsup.png" alt="Unsupervised DBs"></div>
+          <div class="strip-info"><span class="strip-name">Unsupervised Methods for Pass Coverage</span><span class="strip-dash"></span><span class="strip-year">2019</span></div>
+          <div class="strip-tags"><span class="strip-tag">Journal</span><span class="strip-tag">ML</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/unsup.png" alt="Unsupervised DBs">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Journal Paper</span><span class="sep"></span>2019</div>
+            <div class="hud-tr"><div class="hud-badge hi">Python</div><div class="hud-badge">GMM</div></div>
+            <div class="hud-bl">Journal of Quantitative Analysis in Sports</div>
+            <div class="hud-br">TC 04:19:33:21</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 04</div>
+            <div class="report-title">Unsupervised Methods for<br>Identifying Pass Coverage</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">Man or zone? The tracking data knows, but nobody had taught a machine to see it without labels.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Unsupervised model to classify man vs zone from player motion data</li><li>Gaussian Mixture Models + hierarchical clustering on constructed features</li><li>Advised by Samuel Ventura and Ronald Yurko at CMU</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result">Published — JQAS</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Dutta, Yurko, Ventura</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">Python, Clustering, PCA</div></div></div>
+            <a href="unsupervised.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 05: NGS -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">05</div>
+          <div class="strip-thumb"><img src="img/work/ngs.png" alt="NGS"></div>
+          <div class="strip-info"><span class="strip-name">NGS Play Animation</span><span class="strip-dash"></span><span class="strip-year">2019</span></div>
+          <div class="strip-tags"><span class="strip-tag">Tool</span><span class="strip-tag">Data Viz</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/ngs.png" alt="NGS">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Tool</span><span class="sep"></span>2019</div>
+            <div class="hud-tr"><div class="hud-badge hi">Python</div><div class="hud-badge">Matplotlib</div></div>
+            <div class="hud-bl">NFL Next Gen Stats Tracking Data</div>
+            <div class="hud-br">TC 05:42:08:14</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 05</div>
+            <div class="report-title">Next Gen Stats<br>Play Animation</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">Tracking data is rows in a spreadsheet. This tool turns it into film you can actually watch.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Animates all 22 players from NGS tracking data in real time</li><li>Frame-by-frame rendering of any play in the dataset</li><li>Visual tool for pattern recognition and play breakdown</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result standard">Analysis Tool — Internal Use</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Dutta, R.</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">Python, Matplotlib</div></div></div>
+            <a href="ngs.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 06: Game Theory -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">06</div>
+          <div class="strip-thumb"><img src="img/work/dribble.png" alt="Game Theory"></div>
+          <div class="strip-info"><span class="strip-name">Game Theory Approach to Basketball</span><span class="strip-dash"></span><span class="strip-year">2019</span></div>
+          <div class="strip-tags"><span class="strip-tag">Research</span><span class="strip-tag">NBA</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/dribble.png" alt="Game Theory">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Research</span><span class="sep"></span>2019</div>
+            <div class="hud-tr"><div class="hud-badge hi">Python</div><div class="hud-badge">Nash Eq</div></div>
+            <div class="hud-bl">CMU Sports Analytics Conference</div>
+            <div class="hud-br">TC 06:15:47:02</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 06</div>
+            <div class="report-title">A Game Theoretic<br>Approach to Basketball</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">Every possession is a strategic game. We modeled it as one.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Modeled NBA possessions as one-shot games with real matchup data</li><li>Nash Equilibrium to identify optimal mixed strategies per team</li><li>Predicted the most-used strategy for 2020 NBA Finals before the series</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result">Predicted 2020 NBA Finals Strategy</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Dutta, Chakrabarti</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">Python, NBA PBP Data</div></div></div>
+            <a href="game_theory.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 07: Sofy.AI -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">07</div>
+          <div class="strip-thumb"><img src="img/work/neweyecolor.gif" alt="Sofy.AI"></div>
+          <div class="strip-info"><span class="strip-name">Sofy.AI: AI-Driven Web Testing</span><span class="strip-dash"></span><span class="strip-year">2017-20</span></div>
+          <div class="strip-tags"><span class="strip-tag">Product</span><span class="strip-tag">ML</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/neweyecolor.gif" alt="Sofy.AI">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Product</span><span class="sep"></span>2017–2020</div>
+            <div class="hud-tr"><div class="hud-badge hi">Python</div><div class="hud-badge">Azure</div></div>
+            <div class="hud-bl">Lead ML Developer // Sofy.AI</div>
+            <div class="hud-br">TC 07:28:55:11</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 07</div>
+            <div class="report-title">Sofy.AI: AI-Driven<br>Web Testing Platform</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">Manual web testing is slow and misses bugs. We built an AI to explore and break websites automatically.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Led cross-functional team of engineers and data scientists</li><li>ML systems using graph theory to optimize test coverage and find defects faster</li><li>Cloud architecture on Azure with CI/CD and high availability</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result standard">Shipped Product — 3 Year Tenure</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Role</div><div class="report-field-value">Lead ML Developer</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">Python, Azure, Graph Theory</div></div></div>
+            <a href="sofy4web.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 08: ICU -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">08</div>
+          <div class="strip-thumb"><img src="img/work/icu.png" alt="ICU"></div>
+          <div class="strip-info"><span class="strip-name">Predicting ICU Patient Mortality</span><span class="strip-dash"></span><span class="strip-year">2018</span></div>
+          <div class="strip-tags"><span class="strip-tag">Competition</span><span class="strip-tag">Neural Nets</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/icu.png" alt="ICU">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Competition</span><span class="sep"></span>2018</div>
+            <div class="hud-tr"><div class="hud-badge hi">Python</div><div class="hud-badge">NN</div></div>
+            <div class="hud-bl">PhysioNet Computing in Cardiology</div>
+            <div class="hud-br">TC 08:51:16:27</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 08</div>
+            <div class="report-title">Predicting ICU<br>Patient Mortality</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">PhysioNet Challenge. 48 hours of ICU data. Predict who survives.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Quorum of Neural Networks with randomized training and oversampling</li><li>Thresholded voting scheme across the ensemble</li><li>Used medical journal averages to handle missing clinical data</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result">Top Score — PhysioNet Challenge</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Dutta, R. (2018)</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">Python, Neural Networks</div></div></div>
+            <a href="patient.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 09: InteLLect -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">09</div>
+          <div class="strip-thumb"><img src="img/work/intel4.png" alt="InteLLect"></div>
+          <div class="strip-info"><span class="strip-name">InteLLect</span><span class="strip-dash"></span><span class="strip-year">2018</span></div>
+          <div class="strip-tags"><span class="strip-tag">Hackathon</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/intel4.png" alt="InteLLect">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Hackathon</span><span class="sep"></span>2018</div>
+            <div class="hud-tr"><div class="hud-badge hi">AI</div><div class="hud-badge">EdTech</div></div>
+            <div class="hud-bl">CMU Hackathon // Team of 4</div>
+            <div class="hud-br">TC 09:03:28:15</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 09</div>
+            <div class="report-title">InteLLect</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">36-hour hackathon. Build something that makes learning smarter. Clock's ticking.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Intelligent systems to personalize educational experiences</li><li>Built under competitive time constraints with a team of 4</li><li>Focus on practical, real-world applicability</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result standard">Completed — 36 Hour Build</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Event</div><div class="report-field-value">CMU Hackathon</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">AI, Education Tech</div></div></div>
+            <a href="intellect.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+      <!-- 10: Omaha -->
+      <div class="strip reveal">
+        <div class="strip-header" onclick="toggleStrip(this.parentElement)">
+          <div class="strip-frame">10</div>
+          <div class="strip-thumb"><img src="img/work/omaha.png" alt="Omaha"></div>
+          <div class="strip-info"><span class="strip-name">Omaha: Football Analysis Tool</span><span class="strip-dash"></span><span class="strip-year">2016</span></div>
+          <div class="strip-tags"><span class="strip-tag">Sports</span><span class="strip-tag">Python</span></div>
+          <div class="strip-toggle"><div class="strip-toggle-icon"></div></div>
+        </div>
+        <div class="strip-panel"><div class="strip-panel-inner"><div class="strip-content-top">
+          <div class="strip-preview">
+            <img src="img/work/omaha.png" alt="Omaha">
+            <div class="ov-vignette"></div><div class="ov-interlace"></div>
+            <div class="ov-brackets"><div class="bkt bkt-tl"></div><div class="bkt bkt-tr"></div><div class="bkt bkt-bl"></div><div class="bkt bkt-br"></div></div>
+            <div class="ov-rec"><div class="rd"></div>REC</div>
+            <div class="hud-tl"><span class="hl">Tool</span><span class="sep"></span>2016</div>
+            <div class="hud-tr"><div class="hud-badge hi">Python</div></div>
+            <div class="hud-bl">Personal Project // Football Analytics</div>
+            <div class="hud-br">TC 10:22:41:03</div>
+          </div>
+          <div class="report">
+            <div class="report-header">Scouting Report — Frame 10</div>
+            <div class="report-title">Omaha: Football<br>Analysis Toolkit</div>
+            <div class="report-section"><div class="report-label">Situation</div><div class="report-text">Before the Browns, before CMU research — this is where it started. A toolkit to break down football the way I saw it.</div></div>
+            <div class="report-section"><div class="report-label">Key Reads</div><ul class="report-reads"><li>Python pipeline for game data analysis and visualization</li><li>Automated report generation from play-by-play data</li><li>Built to uncover strategic insights others weren't looking for</li></ul></div>
+            <div class="report-section"><div class="report-label">Result</div><div class="report-result standard">Foundation — Where It All Started</div></div>
+            <div class="report-row"><div class="report-field"><div class="report-field-label">Personnel</div><div class="report-field-value">Dutta, R.</div></div><div class="report-field"><div class="report-field-label">Stack</div><div class="report-field-value">Python</div></div></div>
+            <a href="omaha.html" class="report-link">View Full Breakdown <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div></div></div>
+      </div>
+
+    </div><!-- /film-strips -->
+
+    <div class="film-footer">
+      <div class="film-footer-left">
+        <span>Rishav Dutta</span><div class="film-footer-sep"></div>
+        <span>Senior AI Research Scientist</span><div class="film-footer-sep"></div>
+        <span>Cleveland Browns</span>
+      </div>
+      <span>End of Reel</span>
+    </div>
+  </section>
 
 
-	<!-- Start Work Area Area -->
-	<section class="work-area section-gap-top section-gap-bottom-90" id="work">
-		<div class="container">
-			<div class="row d-flex justify-content-between align-items-end mb-80">
-				<div class="col-lg-6">
-					<div class="section-title">
-						<h2>Projects</h2>
-						<p>These are some of the projects that I have worked on over the past couple of years.</p>
-					</div>
-				</div>
-
-				<div class="col-lg-6">
-					<div class="filters">
-						<ul>
-							<li class="active" data-filter=".all">All Categories</li>
-							<li data-filter=".sports">Sports</li>
-							<li data-filter=".hackathon">Hackathons</li>
-							<li data-filter=".work">Work</li>
-							<li data-filter=".school">School</li>
-							<li data-filter=".python">Python</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="filters-content">
-				<div class="row grid">
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all web-design sports python wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-						<div class="relative">
-							<div class="thumb">
-								<div class="overlay overlay-bg"></div>
-								<img class="image img-fluid" src="img/work/unsup.png" alt="">
-							</div>
-							<div class="middle">
-								<h4>Unsupervised Techniques for Classifying DBs</h4>
-								<div class="cat">2019-20</div>
-							</div>
-							<a class="overlay" href="unsupervised.html"></a>
-						</div>
-					</div>
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all web-design sports python wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-						<div class="relative">
-							<div class="thumb">
-								<div class="overlay overlay-bg"></div>
-								<img class="image img-fluid" src="img/work/zaxis.png" alt="">
-							</div>
-							<div class="middle">
-								<h4>NFL3D</h4>
-								<div class="cat">2020</div>
-							</div>
-							<a class="overlay" href="nfl3d.html"></a>
-						</div>
-					</div>
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all hackathon wow fadeInUp" data-wow-duration="2s">
-						<div class="relative">
-							<div class="thumb">
-								<div class="overlay overlay-bg"></div>
-								<img class="image img-fluid" src="img/work/intel4.png" alt="">
-							</div>
-							<div class="middle">
-								<h4>InteLLect</h4>
-								<div class="cat">2018</div>
-							</div>
-							<a class="overlay" href="intellect.html"></a>
-						</div>
-					</div>
-					
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all work python web-design wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
-						<div class="relative">
-							<div class="thumb">
-								<div class="overlay overlay-bg"></div>
-								<img class="image img-fluid" src="img/work/neweyecolor.gif" alt="">
-							</div>
-							<div class="middle">
-								<h4>Sofy4Web</h4>
-								<div class="cat">2018</div>
-							</div>
-							<a class="overlay" href="sofy4web.html"></a>
-						</div>
-					</div>
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all school python wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-							<div class="relative">
-								<div class="thumb">
-									<div class="overlay overlay-bg"></div>
-									<img class="image img-fluid" src="img/work/icu.png" alt="">
-								</div>
-								<div class="middle">
-									<h4>Predicting ICU Patient Moratility</h4>
-									<div class="cat">2018</div>
-								</div>
-								<a class="overlay" href="patient.html"></a>
-							</div>
-						</div>
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all web-design school sports python wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.6s">
-						<div class="relative">
-							<div class="thumb">
-								<div class="overlay overlay-bg"></div>
-								<img class="image img-fluid" src="img/work/dribble.png" alt="">
-							</div>
-							<div class="middle">
-								<h4>Game Theory Approach to Basketball</h4>
-								<div class="cat">2019</div>
-							</div>
-							<a class="overlay" href="game_theory.html"></a>
-						</div>
-					</div>
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all sports python wow fadeInUp" data-wow-duration="2s">
-						<div class="relative">
-							<div class="thumb">
-								<div class="overlay overlay-bg"></div>
-								<img class="image img-fluid" src="img/work/omaha.png" alt="">
-							</div>
-							<div class="middle">
-								<h4>Omaha: Football Tool</h4>
-								<div class="cat">2016</div>
-							</div>
-							<a class="overlay" href="omaha.html"></a>
-						</div>
-					</div>
-					<div class="single-work col-lg-4 col-md-6 col-sm-12 all sports python wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-						<div class="relative">
-							<div class="thumb">
-								<div class="overlay overlay-bg"></div>
-								<img class="image img-fluid" src="img/work/ngs.png" alt="">
-							</div>
-							<div class="middle">
-								<h4>NGS Play Animation</h4>
-								<div class="cat">2019</div>
-							</div>
-							<a class="overlay" href="ngs.html"></a>
-						</div>
-					</div>
-	
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Work Area Area -->
+  <!-- ==================== DIVIDER ==================== -->
+  <div class="divider"><div class="divider-line"></div></div>
 
 
-	<!-- Start Job History Area Area -->
-	<section class="job-area section-gap-top section-gap-bottom-90" id ="job">
-		<div class="container">
-			<div class="row d-flex">
-				<div class="col-lg-12">
-					<div class="section-title">
-						<h2>Job History</h2>
-					</div>
-				</div>
-			</div>
-			
-			
-			
+  <!-- ==================== DEPTH CHART + CAREER WAR ==================== -->
+  <section class="section" id="career">
+    <div class="reveal">
+      <div class="section-label">03 — Career</div>
+      <h2 class="section-heading">The Depth Chart</h2>
+      <p class="section-desc">Every team needs a roster. Here's mine.</p>
+    </div>
 
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="single-job">
-						<div class="top-sec d-flex justify-content-between">
-							<div class="top-left">
-								<h4>Cleveland Browns</h4>
-								<p>July 2nd 2021 - </p>
-							</div>
-							<div class="top-right">
-								<div class="col single-brand">
-										<a href=""><img class="mx-auto" src="img/browns.png" alt=""></a>
-									</div>
-							</div>
-						</div>
-						<div class="bottom-sec wow fadeIn" data-wow-duration="2s">
-							<p>Football Research Scientist <br/>
-							  Cleveland, Ohio</p>
-							<p>
-								Football Research Science
-							</p>
-							<br>
-						</div>
-					</div>
-				</div>
+    <div class="board">
+      <div class="board-clip"></div>
+      <div class="board-header">
+        <div class="board-title-area">
+          <div class="board-icon">RD</div>
+          <div><div class="board-title">Active Roster</div></div>
+        </div>
+        <div class="board-season">2016 — PRESENT</div>
+      </div>
 
-				<div class="col-lg-6">
-					<div class="single-job">
-						<div class="top-sec d-flex justify-content-between">
-							<div class="top-left">
-								<h4>Microsoft</h4>
-								<p>August 2nd 2020 - Jun 25th 2021</p>
-							</div>
-							<div class="top-right">
-								<div class="col single-brand">
-										<a href=""><img class="mx-auto" src="img/brand/msft.png" alt=""></a>
-									</div>
-							</div>
-						</div>
-						<div class="bottom-sec wow fadeIn" data-wow-duration="2s">
-								<p>Software Engineer <br/>
-									Redmond, Wa</p>
+      <!-- QB1 -->
+      <div class="position-row" data-delay="0">
+        <div class="position-label"><div><div class="position-code">QB1</div><div class="position-nickname">The Playmaker</div><div class="position-group-name">Research &amp; Analytics</div></div></div>
+        <div class="card-area">
+          <div class="player-card captain">
+            <div class="card-pin"></div><div class="jersey-number">#1</div>
+            <div class="dc-badge badge-captain"><span style="font-size:12px">★</span> Captain</div>
+            <div class="card-top"><div><div class="card-role">Senior AI Research Scientist</div><div class="card-company">Cleveland Browns</div></div></div>
+            <div class="card-dates">2021 — Present</div>
+            <div class="card-details">
+              <div class="detail-item"><span class="detail-bullet">◆</span><span>LLMs for automated scouting reports &amp; player evaluation</span></div>
+              <div class="detail-item"><span class="detail-bullet">◆</span><span>CNNs for player tracking data &amp; multimodal projections</span></div>
+              <div class="detail-item"><span class="detail-bullet">◆</span><span>#1 ranked analytics department in the NFL, 2024</span></div>
+              <div class="skills-row"><span class="dc-skill-tag">LLMs</span><span class="dc-skill-tag">CNNs</span><span class="dc-skill-tag">Computer Vision</span><span class="dc-skill-tag">Python</span><span class="dc-skill-tag">PyTorch</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-								<p>
-									Azure Networking
-								</p>
-						</div>
-					</div>
-				</div>
+      <!-- LT -->
+      <div class="position-row" data-delay="1">
+        <div class="position-label"><div><div class="position-code">LT</div><div class="position-nickname">The Protector</div><div class="position-group-name">Engineering</div></div></div>
+        <div class="card-area">
+          <div class="player-card starter">
+            <div class="card-pin"></div><div class="jersey-number">#76</div>
+            <div class="dc-badge badge-starter">Starter</div>
+            <div class="card-top"><div><div class="card-role">Software Engineer</div><div class="card-company">Microsoft</div></div></div>
+            <div class="card-dates">2020 — 2021</div>
+            <div class="card-details">
+              <div class="detail-item"><span class="detail-bullet">◆</span><span>Azure Networking — backbone infrastructure</span></div>
+              <div class="detail-item"><span class="detail-bullet">◆</span><span>10x improvement in allocation speed via GRPC microservices</span></div>
+              <div class="skills-row"><span class="dc-skill-tag">C#</span><span class="dc-skill-tag">GRPC</span><span class="dc-skill-tag">Azure</span><span class="dc-skill-tag">Microservices</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-				<div class="col-lg-6">
-					<div class="single-job">
-						<div class="top-sec d-flex justify-content-between">
-							<div class="top-left">
-								<h4>InBios International</h4>
-								<p>June 6th 2015 - August 26th 2016</p>
-							</div>
-							<div class="top-right">
-									<div class="col single-brand">
-											<a href=""><img class="mx-auto" src="img/brand/inbios.jpg" alt=""></a>
-										</div>
-								</div>
-						</div>
-						<div class="bottom-sec wow fadeIn" data-wow-duration="2s" data-wow-delay="0.4s">
-								<p>Research Intern <br/>
-									Seattle, Wa</p>
-								<p>
-										Worked on the development of a digital immunoassay system for the detection of Dengue Fever. The current visual system relies on a visual detection method, resulting in it being inaccurate in many cases. The digital detection system makes the detection much less of a human interaction, making it much more accurate.
-								</p>
-						</div>
-					</div>
-				</div>
+      <!-- WR1 -->
+      <div class="position-row" data-delay="2">
+        <div class="position-label"><div><div class="position-code">WR1</div><div class="position-nickname">The Deep Threat</div><div class="position-group-name">Machine Learning</div></div></div>
+        <div class="card-area">
+          <div class="player-card starter">
+            <div class="card-pin"></div><div class="jersey-number">#11</div>
+            <div class="dc-badge badge-starter">Starter</div>
+            <div class="card-top"><div><div class="card-role">Lead ML Developer</div><div class="card-company">Sofy.AI</div></div></div>
+            <div class="card-dates">2017 — 2020</div>
+            <div class="card-details">
+              <div class="detail-item"><span class="detail-bullet">◆</span><span>AI-driven web testing platform</span></div>
+              <div class="detail-item"><span class="detail-bullet">◆</span><span>Graph theory algorithms for intelligent test generation</span></div>
+              <div class="skills-row"><span class="dc-skill-tag">Python</span><span class="dc-skill-tag">Graph Theory</span><span class="dc-skill-tag">Azure</span><span class="dc-skill-tag">NLP</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			</div>
-		</div>
-	</section>
-	<!-- End Job Historyt Area Area -->
+      <!-- ST: Publications -->
+      <div class="position-row" data-delay="3">
+        <div class="position-label"><div><div class="position-code">ST</div><div class="position-nickname">The Specialists</div><div class="position-group-name">Publications</div></div></div>
+        <div class="card-area">
+          <div class="pub-card"><span class="pub-year">2021</span><span class="pub-title">PaVE — Pass Value Estimation</span><span class="pub-badge">Honorable Mention</span><span class="pub-venue">NFL Big Data Bowl</span></div>
+          <div class="pub-card"><span class="pub-year">2020</span><span class="pub-title">nflscrapR — Open-source NFL data toolkit</span><span class="pub-badge">Featured</span><span class="pub-venue">The Athletic / 538</span></div>
+          <div class="pub-card"><span class="pub-year">2019</span><span class="pub-title">Unsupervised Methods for Pass Coverage</span><span class="pub-venue">JQAS</span></div>
+          <div class="pub-card"><span class="pub-year">2019</span><span class="pub-title">NFL3D &amp; Game Theory in Basketball</span><span class="pub-venue">CMU Sports Analytics</span></div>
+          <div class="pub-card"><span class="pub-year">2018</span><span class="pub-title">ICU Patient Mortality Prediction</span><span class="pub-badge">Top Score</span><span class="pub-venue">PhysioNet</span></div>
+        </div>
+      </div>
 
+      <!-- HC: Education -->
+      <div class="position-row" data-delay="4">
+        <div class="position-label"><div><div class="position-code">HC</div><div class="position-nickname">The Coach</div><div class="position-group-name">Education</div></div></div>
+        <div class="card-area">
+          <div class="dc-edu-card">
+            <div class="dc-edu-dates">2016 — 2020</div>
+            <div class="dc-edu-school">Carnegie Mellon University</div>
+            <div class="dc-edu-degree">B.S. Computer Science — Machine Learning Minor</div>
+            <div class="dc-edu-sub">School of Computer Science • Statistics &amp; Data Science Research</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<!-- Start Service Area -->
-	<section class="service-area section-gap" id = "edu">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="section-title">
-						<h2>Education History</h2>
+    <!-- Career WAR -->
+    <div class="war-section reveal" id="career-war">
+      <div class="section-label">Impact Over Time</div>
+      <h2 class="section-heading" style="margin-bottom:0.75rem">Career <span style="color:var(--accent)">WAR</span></h2>
+      <p class="section-desc" style="margin-bottom:0">Wins Above Replacement</p>
 
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6">
-					<div class="single-service wow fadeInUp" data-wow-duration="1s">
-						<img class="mx-auto" src="img/brand/cmulogo.png" alt="" style="float: right;">
-						<h4>
-							Carnegie Mellon University
-						</h4>
-						<p>September 2016 - December 2019</p>
-						<br>
-						<!-- <img class="mx-auto" src="img/brand/scsmall.png" alt=""> -->
-						
-							
-						
-						<div class="row">
-							<div class="col-lg-3">
-									<img class="mx-auto" src="img/brand/scsmall.png" alt="" style="display: block;">
-							</div>
-							<div class="col-lg-9">
-									<p> Carnegie Mellon University SCS majoring in Computer Science</p>
-									
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3">
-									<img class="mx-auto" src="img/brand/mlsmall.jpg" alt="" style="display: block;">
-							</div>
+      <div class="war-current" id="warCurrent">
+        <div class="war-current-label">Current WAR</div>
+        <div class="war-current-value" id="warValue">0</div>
+        <div class="war-current-unit">Impact Rating</div>
+      </div>
 
-							<div class="col-lg-9">
-									<p> Minor in Machine Learning with a focus on data science and artificial intelligence</p>
-									
-							</div>
-						</div>
-						<br>
-						<div class="row">
-	
-								<div class="col-lg-12">
-									<p>From January 2019 onwards I have been doing research in sports data science. This work is done in the CMU School of Statistics and Data Science.</p>
-										
-								</div>
-						</div>
-						
-						
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6">
-					<div class="single-service wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
-						<!-- <span class="lnr lnr-laptop-phone"></span> -->
-						<img class="mx-auto" src="img/brand/ilake.jpg" alt="" style="float: right;">
-						<h4>Interlake High School
-						</h4>
-						<p>September 2012 - June 2016</p>
-						<br>
+      <div class="chart-container">
+        <div class="chart-inner" id="chartInner">
+          <svg class="chart-svg" id="chartSvg" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+              <filter id="dot-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+              <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF3C00" stop-opacity="0.25"/><stop offset="100%" stop-color="#FF3C00" stop-opacity="0"/></linearGradient>
+              <linearGradient id="areaGradBrowns" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF3C00" stop-opacity="0.45"/><stop offset="100%" stop-color="#FF3C00" stop-opacity="0.02"/></linearGradient>
+              <clipPath id="lineClip"><rect id="lineClipRect" x="0" y="0" width="0" height="2000"/></clipPath>
+            </defs>
+          </svg>
+        </div>
+      </div>
 
-						<div class="row">
-							<div class="col-lg-3">
-									<img class="mx-auto" src="img/brand/bsd.jpg" alt="" style="display: block;">
-							</div>
-							<div class="col-lg-9">
-									<p> Bellevue School District Gifted Program (PRISM) starting in 2012 </p>
-									
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3">
-									<img class="mx-auto" src="img/brand/ibsmall.png" alt="" style="display: block;">
-							</div>
-
-							<div class="col-lg-9">
-									<p> IB Diploma recipient and National AP Scholar recipient</p>
-									
-							</div>
-						</div>
-						<br>
-						<div class="row">
-	
-								<div class="col-lg-12">
-									<p>Member of the Varsity Football Team and Varsity Track and Field Team. Also member of Math Club and Science Bowl.</p>	
-								</div>
-								
-						</div>
-						<br>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</section>
-	<!-- End Service Area -->
+      <div class="war-legend" id="warLegend">
+        <div class="legend-item"><div class="legend-swatch" style="background:#3a6ea5"></div><span class="legend-label">CMU (2016–2020)</span></div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#7b5ea7"></div><span class="legend-label">Microsoft (2020–2021)</span></div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#FF3C00"></div><span class="legend-label">Browns (2021–Present)</span></div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#FF3C00;border-radius:50%;width:8px;height:8px"></div><span class="legend-label">Milestone</span></div>
+      </div>
+    </div>
+  </section>
 
 
-
-	<!-- Start Contact Area -->
-	<section class="contact-area section-gap" id="contact">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="contact-title">
-						<h2>Contact Me</h2>
-						<!-- <p>The best way to contact me is by email</p> -->
-					</div>
-				</div>
-			</div>
-
-			<div class="row mt-80">
-				<div class="col-lg-4 col-md-4">
-					<div class="contact-box">
-						<h4>425 765 2191</h4>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4">
-					<div class="contact-box">
-						<h4>rishavdutta.wa@gmail.com</h4>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4">
-					<div class="contact-box">
-						<h4>dutta.github.io</h4>
-					</div>
-				</div>
-			</div>
-
-	
-		</div>
-	</section>
-	<!-- End Contact Area -->
+  <!-- ==================== DIVIDER ==================== -->
+  <div class="divider"><div class="divider-line"></div></div>
 
 
-	<!-- start footer Area -->
-	
-	<!-- End footer Area -->
+  <!-- ==================== CONTACT ==================== -->
+  <section class="section contact-section" id="contact">
+    <div class="reveal">
+      <div class="section-label">04 — Contact</div>
+      <h2 class="section-heading">Let's Connect</h2>
+      <p class="section-desc" style="margin: 0 auto;">Always open to conversations about sports analytics, data science, or creative collaborations.</p>
+    </div>
 
-	<!-- ####################### Start Scroll to Top Area ####################### -->
-	<div id="back-top">
-		<a title="Go to Top" href="#">
-			<i class="lnr lnr-arrow-up"></i>
-		</a>
-	</div>
-	<!-- ####################### End Scroll to Top Area ####################### -->
+    <a href="mailto:rishavdutta.wa@gmail.com" class="contact-email reveal">rishavdutta.wa@gmail.com</a>
 
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	 crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/mn-accordion.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/isotope.pkgd.min.js"></script>
-	<script src="js/jquery.circlechart.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/main.js"></script>
+    <div class="contact-socials reveal">
+      <a href="https://www.linkedin.com/in/rishavdutta/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/dutta" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://twitter.com/rishavd64" target="_blank" rel="noopener">Twitter</a>
+    </div>
+  </section>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <div class="divider"><div class="divider-line"></div></div>
+  <footer class="footer">
+    &copy; <script>document.write(new Date().getFullYear());</script> Rishav Dutta
+  </footer>
+
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // ---- NAV SCROLL BEHAVIOR ----
+    const nav = document.getElementById('nav');
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
+
+    // ---- SCROLL REVEAL ----
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+
+    // ---- FILM ROOM: STRIP TOGGLE ----
+    function toggleStrip(strip) {
+      const wasActive = strip.classList.contains('active');
+      document.querySelectorAll('.strip.active').forEach(s => s.classList.remove('active'));
+      if (!wasActive) strip.classList.add('active');
+    }
+
+    // ---- FILM ROOM: VCR TIMECODE ----
+    (function(){
+      const el = document.getElementById('vcr-time');
+      if (!el) return;
+      const start = Date.now();
+      const pad = (n,d) => String(n).padStart(d,'0');
+      (function tick(){
+        const e = Date.now()-start;
+        el.textContent = pad(Math.floor(e/3600000)%24,2)+':'+pad(Math.floor(e/60000)%60,2)+':'+pad(Math.floor(e/1000)%60,2)+':'+pad(Math.floor((e%1000)/(1000/30)),2);
+        requestAnimationFrame(tick);
+      })();
+    })();
+
+
+    // ---- COMBINE: SKILL BARS ----
+    (function() {
+      var skills = [
+        { name: 'Python', detail: '8+ years', grade: 'elite', pct: 96 },
+        { name: 'R', detail: '6+ years', grade: 'elite', pct: 94 },
+        { name: 'Machine Learning', detail: 'Published — JQAS, Big Data Bowl', grade: 'elite', pct: 95 },
+        { name: 'Sports Analytics', detail: '4 NFL seasons, 6 publications', grade: 'elite', pct: 97 },
+        { name: 'Research', detail: '6 publications, CMU Stats & DS', grade: 'elite', pct: 95 },
+        { name: 'Deep Learning', detail: 'PyTorch, TensorFlow, CNNs, LLMs', grade: 'advanced', pct: 82 },
+        { name: 'Data Visualization', detail: '3D tracking viz, play animation', grade: 'advanced', pct: 80 },
+        { name: 'Leadership', detail: 'Led cross-functional ML team', grade: 'advanced', pct: 78 },
+        { name: 'Cloud / Engineering', detail: 'Azure, C#, Microservices', grade: 'solid', pct: 65 },
+        { name: 'SQL / Databases', detail: 'MongoDB, Relational', grade: 'solid', pct: 64 }
+      ];
+      var container = document.getElementById('skillBars');
+      if (!container) return;
+      var gradeLabels = { elite: 'Elite', advanced: 'Advanced', solid: 'Solid' };
+      skills.forEach(function(skill, i) {
+        if (i === 5 || i === 8) { var div = document.createElement('div'); div.className = 'measurables-divider'; container.appendChild(div); }
+        var row = document.createElement('div');
+        row.className = 'skill-row';
+        row.dataset.delay = i * 100;
+        row.innerHTML = '<div class="skill-info"><span class="skill-name">' + skill.name + '</span><div class="skill-meta"><span class="skill-detail">' + skill.detail + '</span><span class="skill-grade ' + skill.grade + '">' + gradeLabels[skill.grade] + '</span></div></div><div class="bar-track"><div class="bar-fill ' + skill.grade + '" style="width:0%" data-target="' + skill.pct + '"></div></div>';
+        container.appendChild(row);
+      });
+      var triggered = false;
+      var panel = document.getElementById('measurablesPanel');
+      if (panel) {
+        var combineObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && !triggered) {
+              triggered = true;
+              var rows = document.querySelectorAll('.skill-row');
+              rows.forEach(function(row) {
+                var delay = parseInt(row.dataset.delay, 10);
+                var fill = row.querySelector('.bar-fill');
+                var target = fill.dataset.target;
+                setTimeout(function() { row.classList.add('visible'); fill.style.width = target + '%'; }, delay);
+              });
+              var dg = document.getElementById('draftGrade');
+              if (dg) dg.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.15 });
+        combineObs.observe(panel);
+      }
+    })();
+
+    // ---- TICKER ----
+    (function() {
+      var items = [
+        'Published in <span class="hl">Journal of Quantitative Analysis in Sports</span>',
+        '<span class="hl">NFL Big Data Bowl 2021</span> — Honorable Mention',
+        '<span class="hl">nflscrapR</span> adopted by <span class="hl">The Athletic</span> & <span class="hl">FiveThirtyEight</span>',
+        '<span class="hl">Browns</span> ranked #1 in win probability added by strategy 2023/2024',
+        'Recognized as most advanced analytics dept in <span class="hl">NFL</span> — 2024',
+        '<span class="hl">CMU</span> School of Computer Science — B.S. CS + ML Minor',
+        '4 <span class="hl">NFL</span> Seasons as Senior AI Research Scientist',
+        'Applied <span class="hl">LLMs</span> to scouting report analysis',
+        'Engineered <span class="hl">CNNs</span> for player tracking → process metrics',
+        '6 Publications spanning <span class="hl">sports analytics</span> & <span class="hl">ML</span>',
+        'Presented at <span class="hl">CMU Sports Analytics Conference</span>',
+        '<span class="hl">PhysioNet Challenge</span> — Top scoring entry',
+        'Recognized by <span class="hl">NFL</span> Director of Data & Analytics'
+      ];
+      var sep = '<span class="ticker-sep">◆</span>';
+      var track = document.getElementById('tickerTrack');
+      if (!track) return;
+      var html = items.map(function(t) { return '<span class="ticker-item">' + t + '</span>'; }).join(sep);
+      track.innerHTML = html + sep + html + sep;
+    })();
+
+    // ---- DEPTH CHART: POSITION ROW ANIMATIONS ----
+    (function() {
+      var rows = document.querySelectorAll('.position-row');
+      var dcObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var row = entry.target;
+            var delay = parseInt(row.dataset.delay || 0) * 120;
+            setTimeout(function() { row.classList.add('visible'); }, delay);
+            dcObs.unobserve(row);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      rows.forEach(function(row) { dcObs.observe(row); });
+    })();
+
+    // ---- CAREER WAR CHART ----
+    (function() {
+      var milestones = [
+        { year: 2016, impact: 10, title: "Started at CMU", desc: "CS + Machine Learning" },
+        { year: 2017, impact: 20, title: "Joined Sofy.AI", desc: "ML Developer, test automation" },
+        { year: 2018, impact: 30, title: "PhysioNet + InteLLect", desc: "Top challenge score, hackathon" },
+        { year: 2019, impact: 50, title: "Published in JQAS", desc: "Unsupervised Pass Coverage, NFL3D" },
+        { year: 2020, impact: 60, title: "Graduated CMU", desc: "nflscrapR released, joined Microsoft" },
+        { year: 2021, impact: 75, title: "Big Data Bowl + Browns", desc: "PaVE honorable mention, joined CLE" },
+        { year: 2022, impact: 82, title: "First Full NFL Season", desc: "Building analytics infrastructure" },
+        { year: 2023, impact: 92, title: "Browns #1 in WPA", desc: "Top win probability added by strategy" },
+        { year: 2024, impact: 98, title: "Most Advanced Dept", desc: "Recognized as NFL's top analytics unit" }
+      ];
+      var eras = [
+        { start: 2016, end: 2020, color: "rgba(58,110,165,0.06)" },
+        { start: 2020, end: 2021, color: "rgba(123,94,167,0.08)" },
+        { start: 2021, end: 2024.8, color: "rgba(255,60,0,0.06)" }
+      ];
+      var YEAR_MIN = 2015.5, YEAR_MAX = 2025, IMPACT_MAX = 105;
+      var svg = document.getElementById("chartSvg");
+      var chartInner = document.getElementById("chartInner");
+      if (!svg || !chartInner) return;
+      var W, H, PL = 45, PR = 30, PT = 30, PB = 40, pW, pH;
+
+      function measure() { var r = chartInner.getBoundingClientRect(); W = r.width; H = r.height; pW = W - PL - PR; pH = H - PT - PB; }
+      function xS(y) { return PL + ((y - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)) * pW; }
+      function yS(i) { return PT + pH - (i / IMPACT_MAX) * pH; }
+      function createSVG(tag, attrs, text) { var el = document.createElementNS("http://www.w3.org/2000/svg", tag); for (var k in attrs) el.setAttribute(k, attrs[k]); if (text) el.textContent = text; return el; }
+
+      function buildChart() {
+        measure();
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+        var defs = svg.querySelector("defs");
+        svg.innerHTML = ""; svg.appendChild(defs);
+        eras.forEach(function(e) { svg.appendChild(createSVG("rect", { x: xS(e.start), y: PT, width: xS(e.end) - xS(e.start), height: pH, fill: e.color, class: "era-band" })); });
+        for (var v = 0; v <= 100; v += 10) { svg.appendChild(createSVG("line", { x1: PL, y1: yS(v), x2: W - PR, y2: yS(v), class: v % 50 === 0 ? "grid-line-major" : "grid-line" })); }
+        for (var yr = 2016; yr <= 2024; yr++) { svg.appendChild(createSVG("line", { x1: xS(yr), y1: PT, x2: xS(yr), y2: PT + pH, class: "grid-line" })); }
+        for (v = 0; v <= 100; v += 25) svg.appendChild(createSVG("text", { x: PL - 10, y: yS(v) + 4, class: "y-axis-label", "text-anchor": "end" }, v.toString()));
+        svg.appendChild(createSVG("text", { x: 14, y: PT + pH / 2, class: "y-axis-label", "text-anchor": "middle", transform: "rotate(-90, 14, " + (PT + pH / 2) + ")" }, "IMPACT"));
+        for (yr = 2016; yr <= 2024; yr++) svg.appendChild(createSVG("text", { x: xS(yr), y: PT + pH + 25, class: "axis-label-year", "text-anchor": "middle" }, yr.toString()));
+        svg.appendChild(createSVG("line", { x1: PL, y1: PT + pH, x2: W - PR, y2: PT + pH, stroke: "rgba(255,255,255,0.08)", "stroke-width": 1 }));
+        var pts = milestones.map(function(m) { return { x: xS(m.year), y: yS(m.impact) }; });
+        var pathD = "M " + pts[0].x + " " + pts[0].y;
+        for (var i = 1; i < pts.length; i++) { var cpx = (pts[i-1].x + pts[i].x) / 2; pathD += " C " + cpx + " " + pts[i-1].y + ", " + cpx + " " + pts[i].y + ", " + pts[i].x + " " + pts[i].y; }
+        var bY = PT + pH, bI = 5;
+        var aG = "M " + pts[0].x + " " + pts[0].y;
+        for (i = 1; i <= bI; i++) { cpx = (pts[i-1].x + pts[i].x) / 2; aG += " C " + cpx + " " + pts[i-1].y + ", " + cpx + " " + pts[i].y + ", " + pts[i].x + " " + pts[i].y; }
+        aG += " L " + pts[bI].x + " " + bY + " L " + pts[0].x + " " + bY + " Z";
+        var aB = "M " + pts[bI].x + " " + pts[bI].y;
+        for (i = bI + 1; i < pts.length; i++) { cpx = (pts[i-1].x + pts[i].x) / 2; aB += " C " + cpx + " " + pts[i-1].y + ", " + cpx + " " + pts[i].y + ", " + pts[i].x + " " + pts[i].y; }
+        aB += " L " + pts[pts.length-1].x + " " + bY + " L " + pts[bI].x + " " + bY + " Z";
+        svg.appendChild(createSVG("path", { d: aG, fill: "url(#areaGrad)", "clip-path": "url(#lineClip)" }));
+        svg.appendChild(createSVG("path", { d: aB, fill: "url(#areaGradBrowns)", "clip-path": "url(#lineClip)" }));
+        svg.appendChild(createSVG("path", { d: pathD, class: "war-line", "clip-path": "url(#lineClip)" }));
+        milestones.forEach(function(m, i) {
+          svg.appendChild(createSVG("line", { x1: pts[i].x, y1: pts[i].y, x2: pts[i].x, y2: bY, class: "milestone-vline", "data-index": i }));
+          var g = createSVG("g", { class: "milestone-dot", "data-index": i });
+          g.appendChild(createSVG("circle", { cx: pts[i].x, cy: pts[i].y, r: 12, class: "milestone-dot-ring" }));
+          g.appendChild(createSVG("circle", { cx: pts[i].x, cy: pts[i].y, r: 6, class: "milestone-dot-outer" }));
+          g.appendChild(createSVG("circle", { cx: pts[i].x, cy: pts[i].y, r: 3.5, class: "milestone-dot-inner" }));
+          svg.appendChild(g);
+        });
+        chartInner.querySelectorAll(".annotation").forEach(function(el) { el.remove(); });
+        milestones.forEach(function(m, i) {
+          var isAbove = i % 2 === 0;
+          var ann = document.createElement("div"); ann.className = "annotation"; ann.dataset.index = i;
+          var card = document.createElement("div"); card.className = "annotation-card " + (isAbove ? "above" : "below");
+          card.innerHTML = '<div class="annotation-year">' + m.year + '</div><div class="annotation-title">' + m.title + '</div><div class="annotation-desc">' + m.desc + '</div>';
+          ann.style.cssText = "position:absolute;left:" + (pts[i].x - 90) + "px;top:" + (isAbove ? pts[i].y - 92 : pts[i].y + 18) + "px;width:180px";
+          ann.appendChild(card); chartInner.appendChild(ann);
+        });
+        window._chartPts = pts;
+      }
+
+      var warAnimated = false;
+      function animateWar() {
+        if (warAnimated) return; warAnimated = true;
+        var pts = window._chartPts, clip = document.getElementById("lineClipRect");
+        var totalW = pts[pts.length-1].x + 30, dur = 3200, start = performance.now();
+        document.querySelectorAll(".era-band").forEach(function(el) { el.classList.add("visible"); });
+        document.getElementById("warCurrent").classList.add("visible");
+        document.getElementById("warLegend").classList.add("visible");
+        (function frame(now) {
+          var p = Math.min((now - start) / dur, 1), e = 1 - Math.pow(1 - p, 3), cx = e * totalW;
+          clip.setAttribute("width", cx);
+          pts.forEach(function(pt, i) {
+            if (cx >= pt.x) {
+              var dot = svg.querySelector('.milestone-dot[data-index="'+i+'"]'), vl = svg.querySelector('.milestone-vline[data-index="'+i+'"]'), ann = chartInner.querySelector('.annotation[data-index="'+i+'"]');
+              if (dot && !dot.classList.contains("visible")) { dot.classList.add("visible"); if(vl) vl.classList.add("visible"); setTimeout(function(){if(ann)ann.classList.add("visible")},200); }
+            }
+          });
+          document.getElementById("warValue").textContent = Math.round(e * 98);
+          if (p < 1) requestAnimationFrame(frame);
+        })(performance.now());
+      }
+
+      var warObs = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { animateWar(); warObs.unobserve(entry.target); } }); }, { threshold: 0.25 });
+
+      function init() { buildChart(); warObs.observe(document.getElementById("career-war")); }
+      var resizeTimer;
+      window.addEventListener("resize", function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(function() { warAnimated = false; buildChart(); var r = document.getElementById("career-war").getBoundingClientRect(); if (r.top < window.innerHeight && r.bottom > 0) animateWar(); else warObs.observe(document.getElementById("career-war")); }, 250); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(init); else window.addEventListener("load", init);
+    })();
+
+
+    // ---- HERO CANVAS: PLAYER TRACKING VISUALIZATION ----
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let w, h;
+    const PARTICLE_COUNT = 18;
+    const CONNECTION_DIST = 150;
+
+    function resize() {
+      const hero = document.querySelector('.hero');
+      w = canvas.width = hero.offsetWidth;
+      h = canvas.height = hero.offsetHeight;
+    }
+
+    function createParticle() {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 0.3 + Math.random() * 0.6;
+      return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        radius: 2 + Math.random() * 2,
+        phase: Math.random() * Math.PI * 2,
+        freq: 0.005 + Math.random() * 0.01,
+        amp: 0.2 + Math.random() * 0.4,
+        color: Math.random() > 0.5
+          ? 'rgba(255, 60, 0, 0.7)'
+          : 'rgba(255, 107, 53, 0.5)',
+        trail: []
+      };
+    }
+
+    function init() {
+      resize();
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(createParticle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECTION_DIST) {
+            const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(255, 60, 0, ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Update and draw particles
+      particles.forEach(p => {
+        p.phase += p.freq;
+        p.vx += Math.sin(p.phase) * p.amp * 0.01;
+        p.vy += Math.cos(p.phase * 0.7) * p.amp * 0.01;
+
+        // Dampen
+        p.vx *= 0.995;
+        p.vy *= 0.995;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap
+        if (p.x < -20) p.x = w + 20;
+        if (p.x > w + 20) p.x = -20;
+        if (p.y < -20) p.y = h + 20;
+        if (p.y > h + 20) p.y = -20;
+
+        // Trail
+        p.trail.push({ x: p.x, y: p.y });
+        if (p.trail.length > 12) p.trail.shift();
+
+        // Draw trail
+        if (p.trail.length > 1) {
+          for (let t = 0; t < p.trail.length - 1; t++) {
+            const alpha = (t / p.trail.length) * 0.3;
+            ctx.beginPath();
+            ctx.moveTo(p.trail[t].x, p.trail[t].y);
+            ctx.lineTo(p.trail[t + 1].x, p.trail[t + 1].y);
+            ctx.strokeStyle = `rgba(255, 60, 0, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        // Draw dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+
+        // Glow
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius + 4, 0, Math.PI * 2);
+        const glow = ctx.createRadialGradient(p.x, p.y, p.radius, p.x, p.y, p.radius + 4);
+        glow.addColorStop(0, 'rgba(255, 60, 0, 0.15)');
+        glow.addColorStop(1, 'rgba(255, 60, 0, 0)');
+        ctx.fillStyle = glow;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+    });
+
+    init();
+    animate();
+  </script>
 </body>
-
 </html>

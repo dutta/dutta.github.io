@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="en">
 
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -11,122 +11,522 @@
 
     gtag('config', 'UA-142864443-1');
     </script>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/logo.png">
-	<!-- Author Meta -->
-	<meta name="author" content="colorlib">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<!-- Site Title -->
-	<title>Rishav Dutta</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="img/logo.png">
+    <meta name="author" content="Rishav Dutta">
+    <meta name="description" content="Predicting Patient Mortality from ICU Data through a Quorum of Neural Networks">
+    <title>Patient Mortality Prediction | Rishav Dutta</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
-	<!--
-			CSS
-			============================================= -->
-	<link rel="stylesheet" href="css/linearicons.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/nice-select.css">
-	<link rel="stylesheet" href="css/animate.min.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --elevated: #111116;
+            --card: #16161c;
+            --accent: #FF3C00;
+            --accent-glow: #FF6B35;
+            --text: #E8E0D4;
+            --muted: #8A8478;
+            --dim: #4A4640;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Crimson Pro', serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-glow);
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(138, 132, 120, 0.1);
+            padding: 0 48px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo:hover {
+            color: var(--accent);
+        }
+
+        .nav-back {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        .nav-back-arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-back:hover .nav-back-arrow {
+            transform: translateX(-4px);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 140px 48px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--dim);
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text);
+            margin-bottom: 32px;
+            max-width: 900px;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta-item {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-meta-item span {
+            color: var(--text);
+        }
+
+        .hero-meta-divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--dim);
+        }
+
+        /* ── Two-Column Layout ── */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 64px 48px 120px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 80px;
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            align-self: start;
+        }
+
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-heading {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--dim);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar-links a {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--muted);
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar-links a:hover {
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        .sidebar-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border: 1px solid var(--dim);
+            border-radius: 100px;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .sidebar-link-external {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            padding: 10px 20px;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .sidebar-link-external:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        /* ── Main Content ── */
+        .main-content section {
+            margin-bottom: 56px;
+        }
+
+        .main-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(74, 70, 64, 0.4);
+        }
+
+        .main-content p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* ── PDF Embed ── */
+        .pdf-container {
+            background: var(--card);
+            border: 1px solid rgba(74, 70, 64, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 56px;
+            position: relative;
+        }
+
+        .pdf-container-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: var(--elevated);
+            border-bottom: 1px solid rgba(74, 70, 64, 0.3);
+        }
+
+        .pdf-container-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .pdf-container embed {
+            display: block;
+            width: 100%;
+            height: 700px;
+            border: none;
+        }
+
+        /* ── Abstract Card ── */
+        .abstract-card {
+            background: var(--card);
+            border: 1px solid rgba(74, 70, 64, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+        }
+
+        .abstract-card p {
+            color: var(--text);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--dim);
+            padding: 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-back {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-back:hover {
+            color: var(--accent);
+        }
+
+        .footer-back:hover .footer-arrow {
+            transform: translateX(-4px);
+        }
+
+        .footer-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .footer-copy {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--dim);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            nav {
+                padding: 0 24px;
+            }
+
+            .hero {
+                padding: 120px 24px 60px;
+            }
+
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                padding: 40px 24px 80px;
+                gap: 48px;
+            }
+
+            .sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            .sidebar-section {
+                margin-bottom: 0;
+            }
+
+            .pdf-container embed {
+                height: 500px;
+            }
+
+            footer {
+                padding: 40px 24px;
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .pdf-container embed {
+                height: 400px;
+            }
+
+            .abstract-card {
+                padding: 24px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-	<!-- Start Preloader Area -->
-	<div class="preloader-area">
-		<div class="loader-box">
-			<div class="loader"></div>
-		</div>
-	</div>
-	<!-- End Preloader Area -->
+    <!-- Nav -->
+    <nav>
+        <a href="index.html" class="nav-logo">RD.</a>
+        <a href="index.html#projects" class="nav-back">
+            <span class="nav-back-arrow">&larr;</span> Back to Projects
+        </a>
+    </nav>
 
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-label">Research Paper</div>
+        <h1>Predicting Patient Mortality from ICU Data through a Quorum of Neural Networks</h1>
+        <div class="hero-meta">
+            <div class="hero-meta-item">By <span>Rishav Dutta</span></div>
+            <div class="hero-meta-divider"></div>
+            <div class="hero-meta-item">PhysioNet Challenge 2012</div>
+        </div>
+    </section>
 
-	<!-- Start Header Area -->
-	<header id="header">
-		<div class="container main-menu">
-			<div class="row align-items-center d-flex">
-				<!-- <div id="logo">
-					<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
-				</div> -->
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-                        <!-- <li class=""><a class="active" href="index.html">Home</a></li> -->
-                        <li><a href="index.html">Home</a></li>
-						<li><a href="index.html#aboutme">About Me</a></li>
-						<li><a href="index.html#work">Projects</a></li>
-						<li ><a href="index.html#job">Work History</a></li>
-						<li ><a href="index.html#edu">Education</a></li>
-						<li ><a href="index.html#contact">Contact</a></li>
-						
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</header>
-	<!-- End Header Area -->
+    <!-- Two-Column Layout -->
+    <div class="content-wrapper">
 
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-heading">On this page</div>
+                <ul class="sidebar-links">
+                    <li><a href="#paper">Full Paper</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#abstract">Abstract</a></li>
+                </ul>
+            </div>
 
-	<!-- start banner Area -->
-	<section class="banner-area2 relative">
-		<div class="container">
-			<div class="row d-flex align-items-center justify-content-center">
-				<div class="about-content col-lg-12">
-					<h2 class="text-white">
-                        Predicting Patient Mortality from ICU Data through a Quorum of Neural Networks
-                    </h2>
-					<p class="link-nav">
-						<span class="box">
-							<a href="index.html">Rishav Dutta </a>
-                        </span>
-                    </p>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End banner Area -->
-
-	<!-- Portfolio Details Area -->
-	<section class="portfolio_details_area section-gap">
-		<div class="container">
-			<div class="portfolio_details_inner">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="left_img">
-                                <embed src="img/patient.pdf" width="600" height="600" 
-                                type="application/pdf">
-						</div>
-					</div>
-					<div class="offset-md-1 col-md-5">
-						<div class="portfolio_right_text mt-150">
-							<h4>Predicting Patient Mortality from ICU Data through a Quorum of Neural Networks</h4>
-							<p>The work that we have done in this paper is using data taken from the
-                                PhysioNet challenge 2012</p>
-							<ul class="list">
-                                <li><span>Data:</span> <a href="https://physionet.org/challenge/2012/">https://physionet.org/challenge/2012/</a></li>                        
-							</ul>
-						</div>
-					</div>
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Tags</div>
+                <div class="sidebar-tags">
+                    <span class="tag">Deep Learning</span>
+                    <span class="tag">Healthcare</span>
+                    <span class="tag">Neural Networks</span>
+                    <span class="tag">ICU</span>
+                    <span class="tag">PhysioNet</span>
                 </div>
-                <h4>Abstract</h4>
-                <br>
-                
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Data Source</div>
+                <a href="https://physionet.org/challenge/2012/" target="_blank" rel="noopener noreferrer" class="sidebar-link-external">
+                    PhysioNet Challenge &nearr;
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- PDF Embed -->
+            <section id="paper">
+                <h2>Full Paper</h2>
+                <div class="pdf-container">
+                    <div class="pdf-container-header">
+                        <span class="pdf-container-label">patient.pdf</span>
+                    </div>
+                    <embed src="img/patient.pdf" width="100%" height="700" type="application/pdf">
+                </div>
+            </section>
+
+            <!-- Overview -->
+            <section id="overview">
+                <h2>Overview</h2>
+                <p>
+                    The work that we have done in this paper is using data taken from the
+                    PhysioNet challenge 2012.
+                </p>
+                <p>
+                    <strong style="color: var(--text);">Data:</strong>
+                    <a href="https://physionet.org/challenge/2012/" target="_blank" rel="noopener noreferrer">https://physionet.org/challenge/2012/</a>
+                </p>
+            </section>
+
+            <!-- Abstract -->
+            <section id="abstract">
+                <h2>Abstract</h2>
+                <div class="abstract-card">
                     <p>
                         Determining how severe the condition of a patient in the ICU can help doctors
                         evaluate how to allocate their resources. This paper attempts to take the data from the
-                        first 48 hours of a patient’s time in the ICU and make the prediction of mortality. We
+                        first 48 hours of a patient's time in the ICU and make the prediction of mortality. We
                         use data from the PhysioNet 2012 challenge and the model was evaluated on the test set
-                        provided. We use the patient’s data and global averages to replace missing data and use an
+                        provided. We use the patient's data and global averages to replace missing data and use an
                         RDF based encoding to preprocess the data. Through randomized training sets and random
                         oversampling, we train a quorum of neural networks that each learn slightly differently. Then
                         through a threshold based voting scheme, we predict the mortality of a sample. This model
@@ -134,42 +534,19 @@
                         placed 1st in the competition.
                     </p>
                 </div>
-                
-                
+            </section>
 
-			</div>
-		</div>
-	</section>
-	<!-- End Portfolio Details Area -->
+        </main>
+    </div>
 
+    <!-- Footer -->
+    <footer>
+        <a href="index.html#projects" class="footer-back">
+            <span class="footer-arrow">&larr;</span> Back to Projects
+        </a>
+        <span class="footer-copy">Rishav Dutta</span>
+    </footer>
 
-
-	<!-- ####################### Start Scroll to Top Area ####################### -->
-	<div id="back-top">
-		<a title="Go to Top" href="#">
-			<i class="lnr lnr-arrow-up"></i>
-		</a>
-	</div>
-	<!-- ####################### End Scroll to Top Area ####################### -->
-
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	 crossorigin="anonymous"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/mn-accordion.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/isotope.pkgd.min.js"></script>
-	<script src="js/jquery.circlechart.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/main.js"></script>
 </body>
 
 </html>
